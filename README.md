@@ -17,4 +17,7 @@ Database Credentials
 -Port: 3306
 
 
-Use <a href="http://www.phpmyadmin.co/">phpMyAdmin</a> to access db via GUI.
+<a href="http://www.phpmyadmin.co/">phpMyAdmin</a>
+
+
+<a href="https://www.w3schools.com/python/python_mysql_insert.asp">Python+MySql</a>
