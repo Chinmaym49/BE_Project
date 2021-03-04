@@ -2,7 +2,9 @@
 
 Always push/pull to/from master...
 
+
 Database Credentials
+
 
 -Username: xjkizVz0D6
 
@@ -13,3 +15,6 @@ Database Credentials
 -Server: remotemysql.com
 
 -Port: 3306
+
+
+Use <a href="http://www.phpmyadmin.co/">phpMyAdmin</a> to access db via GUI.
