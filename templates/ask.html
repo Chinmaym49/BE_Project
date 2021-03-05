@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ask &amp; Question - Stackoverflow lite</title>
+    <title>Ask a Question - Stackoverflow lite</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
 </head>
 <body>
@@ -13,7 +13,7 @@
         <div class=" mobi-hide sidebar col-3 navbar-primary full-height">
             <!-- logo -->
             <div>
-                <a href="#">
+                <a href="">
                     <img class="fadeIn sidebar__logo-backend" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo">
                 </a>
             </div>
@@ -35,10 +35,9 @@
                     <li class="sidebar-items__nav--active">
                         <a class="active-text" href="ask.html">
                             <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
-                            <span class="sidebar-items__text">Ask Question</span>
+                            <span class="sidebar-items__text">Ask a Question</span>
                        </a>
                     </li>
-                    
                     <li>
                         <a href="profile.html">
                             <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
@@ -56,12 +55,9 @@
                         <div class="pull-left">
                             <ul class="nav text-center">
                                 <li>
-                                    <img class="icon" src="{{ url_for('static',filename='img/list.svg') }}" />                                        
-                                </li>
-                                <li>
                                     <div class="form-group mobi-hide">
                                         <img class="icon input-icon fadeIn" src="{{ url_for('static',filename='img/loupe.svg') }}" />
-                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search..">
+                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Question...">
                                     </div>
                                 </li>
                             </ul>
@@ -98,13 +94,12 @@
                                 <form class="form-ask" method="POST">
                                     <div class="">
                                         <label>Title</label>
-                                        <input class="stretchRight input-control" type='text' name='title' placeholder="What's your programming question? Be specific">
+                                        <input class="stretchRight input-control" style="font-size: 15px;" type='text' name='title' placeholder="What's your programming question? Be specific...">
                                     </div>
-
+                                    <br>
                                     <div class="">
                                         <label>Body</label>
-                                        <textarea class="stretchRight input-control" name='body' placeholder="Please enter question body here..."></textarea>
-                                        
+                                        <textarea class="stretchRight input-control" style="font-size: 15px;" name='body' placeholder="Please elaborate here..."></textarea>
                                     </div>
                                    
                                     <div class="">
