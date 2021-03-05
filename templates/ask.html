@@ -21,22 +21,22 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="questions.html">
+                        <a href="{{url_for('quespage')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
                     </li>
                     <li class="">
-                        <a>
+                        <a href="{{url_for('tagpage')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
                             <span class="sidebar-items__text">Tags</span>
                         </a>                        
                     </li>
                     <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="ask.html">
+                        <a class="active-text" href="{{url_for('askQuestion')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
                             <span class="sidebar-items__text">Ask a Question</span>
-                       </a>
+                        </a>
                     </li>
                     <li>
                         <a href="profile.html">
