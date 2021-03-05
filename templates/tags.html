@@ -26,14 +26,14 @@
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
                     </li>
-                    <li class="">
-                        <a href="{{url_for('tagpage')}}">
+                    <li class="sidebar-items__nav--active">
+                        <a class="active-text" href="{{url_for('tagpage')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
                             <span class="sidebar-items__text">Tags</span>
                         </a>                        
                     </li>
-                    <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('askQuestion')}}">
+                    <li class="">
+                        <a href="{{url_for('askQuestion')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
                             <span class="sidebar-items__text">Ask a Question</span>
                         </a>
