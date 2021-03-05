@@ -10,7 +10,14 @@ db=mysql.connector.connect(host="remotemysql.com",user="xjkizVz0D6",password="cQ
 
 @app.route("/")
 def homepage():
-    return "-_-"
+    return '-_-'
+
+@app.route("/askQuestion", methods =["GET", "POST"])
+def askQuestion():
+    if request.method == "POST": 
+        title = request.form.get("title")
+        body = request.form.get("body")
+    return render_template('ask.html')
 
 if __name__=="__main__":
     app.run(debug=True,host="0.0.0.0")
