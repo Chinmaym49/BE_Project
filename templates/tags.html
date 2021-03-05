@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ask a Question - Stackoverflow lite</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
+</head>
+<body>
+    <div class="main">
+        <!-- sidebar -->
+        <div class=" mobi-hide sidebar col-3 navbar-primary full-height">
+            <!-- logo -->
+            <div>
+                <a href="">
+                    <img class="fadeIn sidebar__logo-backend" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo">
+                </a>
+            </div>
+            <!-- ./logo -->
+            <div class="sidebar-items">
+                <ul class="sidebar-items__nav nav column">
+                    <li class="">
+                        <a href="{{url_for('quespage')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
+                            <span class="sidebar-items__text">Questions</span>
+                        </a>                        
+                    </li>
+                    <li class="sidebar-items__nav--active">
+                        <a class="active-text" href="{{url_for('tagpage')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
+                            <span class="sidebar-items__text">Tags</span>
+                        </a>                        
+                    </li>
+                    <li class="">
+                        <a href="{{url_for('askQuestion')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
+                            <span class="sidebar-items__text">Ask a Question</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
+                            <span class="sidebar-items__text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ./sidebar -->
+        <div class="body-wrapper col-10 ">
+            <!-- navbar -->
+            <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+                    <div class="container">
+                        <div class="pull-left">
+                            <ul class="nav text-center">
+                                <li>
+                                    <div class="form-group mobi-hide">
+                                        <img class="icon input-icon fadeIn" src="{{ url_for('static',filename='img/loupe.svg') }}" />
+                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Question...">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="nav">
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>                                
+                                    <a href="index.html" class="btn btn-round mt--5 bg-orange">
+                                        Log out
+                                    </a>                                
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <!-- ./navbar -->
+            
+            <!-- list -->
+            <div class="clearfix"></div>
+            <div class="main-wrapper">
+               <div class="container">
+                   <div class="col-6">
+                        <div class="panel bg-white">
+                            <div class="panel__heading" >
+                                <div class="mega-text hatch text-primary">
+                                        Ask a question
+                                </div>                                                        
+                            </div>
+                            <div class="panel__body m-20">
+                                <!-- question -->
+                                <form class="form-ask" method="POST">
+                                    <div class="">
+                                        <label>Title</label>
+                                        <input class="stretchRight input-control" style="font-size: 15px;" type='text' name='title' placeholder="What's your programming question? Be specific...">
+                                    </div>
+                                    <br>
+                                    <div class="">
+                                        <label>Body</label>
+                                        <textarea class="stretchRight input-control" style="font-size: 15px;" name='body' placeholder="Please elaborate here..."></textarea>
+                                    </div>
+                                   
+                                    <div class="">
+                                        <button class="floating pull-left btn btn-primary bg-orange p-15 btn-block">
+                                            Post Your Question
+                                        </button>
+                                    </div> 
+                            </form>
+                            <!-- ./question -->
+                                    
+                            </div>
+                        </div>
+                   </div> 
+                   <div class="col-6">
+                       <div class="panel">
+                           <span class="mega-text">&nbsp;</span>
+                           <img src="{{ url_for('static',filename='img/unnamed.png') }}" class="fadeIn card-image" />
+                       </div>
+                   </div>                   
+               </div>
+            </div>
+            <!-- ./list -->
+        </div>
+
+    </div>
+</body>
+
+<!-- <script src="./js/main.js"></script> -->
+</html>
+
