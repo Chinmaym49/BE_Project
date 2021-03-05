@@ -6,9 +6,7 @@ app = Flask(__name__)
 app.secret_key = "cD7nTw3jF4cwA1dv"
 app.permanent_session_lifetime = timedelta(days=10)
 
-db = mysql.connector.connect(
-    host="remotemysql.com", user="xjkizVz0D6", password="cQDyeM6Uxx", database="xjkizVz0D6")
-
+conf={"host":"remotemysql.com","user":"xjkizVz0D6","password":"cQDyeM6Uxx","database":"xjkizVz0D6"}
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -35,7 +33,12 @@ def profile():
 
 @app.route("/tags")
 def tagpage():
-    return render_template("tags.html")
+    db=mysql.connector.connect(**conf)
+    cur=db.cursor()
+    cur.execute("select * from Tag")
+    tags=cur.fetchall()
+    cur.close()
+    return render_template("tags.html",tags=tags,n=len(tags))
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
