@@ -12,7 +12,14 @@ db = mysql.connector.connect(
 
 @app.route("/")
 def homepage():
-    return "-_-"
+    return '-_-'
+
+@app.route("/askQuestion", methods =["GET", "POST"])
+def askQuestion():
+    if request.method == "POST": 
+        title = request.form.get("title")
+        body = request.form.get("body")
+    return render_template('ask.html')
 
 
 if __name__ == "__main__":
