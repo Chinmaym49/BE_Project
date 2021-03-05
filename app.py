@@ -10,16 +10,32 @@ db = mysql.connector.connect(
     host="remotemysql.com", user="xjkizVz0D6", password="cQDyeM6Uxx", database="xjkizVz0D6")
 
 
-@app.route("/")
-def homepage():
-    return '-_-'
+@app.route("/", methods=["GET", "POST"])
+def home():
+    return render_template('index.html')
 
-@app.route("/askQuestion", methods =["GET", "POST"])
+
+@app.route("/askQuestion", methods=["GET", "POST"])
 def askQuestion():
-    if request.method == "POST": 
+    if request.method == "POST":
         title = request.form.get("title")
         body = request.form.get("body")
     return render_template('ask.html')
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template('login.html')
+
+
+@app.route("/questions", methods=["GET", "POST"])
+def questions():
+    return "Questions"
+
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    return "Profile"
 
 
 if __name__ == "__main__":
