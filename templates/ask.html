@@ -21,7 +21,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="{{url_for('quespage')}}">
+                        <a href="{{url_for('questions')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="profile.html">
+                        <a href="{{url_for('profile')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
                             <span class="sidebar-items__text">Profile</span>
                         </a>
@@ -65,7 +65,7 @@
                         <div class="pull-right">
                             <ul class="nav">
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="{{url_for('home')}}">Home</a>
                                 </li>
                                 <li>                                
                                     <a href="index.html" class="btn btn-round mt--5 bg-orange">

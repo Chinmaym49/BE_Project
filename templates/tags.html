@@ -21,7 +21,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="{{url_for('quespage')}}">
+                        <a href="{{url_for('questions')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="profile.html">
+                        <a href="{{url_for('profile')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
                             <span class="sidebar-items__text">Profile</span>
                         </a>
@@ -65,7 +65,7 @@
                         <div class="pull-right">
                             <ul class="nav">
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="{{url_for('home')}}">Home</a>
                                 </li>
                                 <li>
                                     <a href="index.html" class="btn btn-round mt--5 bg-orange">
@@ -89,23 +89,33 @@
                                 </div>                                                        
                             </div>
                             <div class="panel__body m-20">
-                                {% for i in range(0,n,4) %}
-                                    <div class="row">
-                                        <div class="column">
-                                            <h3>{{tags[i][1]}}</h3>
-                                        </div>
-                                        <div class="column">
-                                            <h3>{{tags[i+1][1]}}</h3>
-                                        </div>
-                                        <div class="column">
-                                            <h3>{{tags[i+2][1]}}</h3>
-                                        </div>
-                                        <div class="column">
-                                            <h3>{{tags[i+3][1]}}</h3>
-                                        </div>
-                                    </div>
-                                    <br>
-                                {% endfor %}
+                                <style>
+                                    td {
+                                      border-radius: 5px;
+                                      text-align: center;
+                                      padding: 15px;
+                                      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                                      background-color: #f1f1f1;
+                                    }
+                                </style>
+                                <table style="border-spacing: 30px;">
+                                    {% for i in range(0,n,4) %}
+                                        <tr>
+                                            <td>
+                                                <h3>{{tags[i][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[i+1][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[i+2][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[i+3][1]}}</h3>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
                             </div>
                         </div>
                     </div>                   
