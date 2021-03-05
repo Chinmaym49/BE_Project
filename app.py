@@ -19,9 +19,13 @@ def askQuestion():
         body = request.form.get("body")
     return render_template('ask.html')
 
+@app.route("/questions")
+def quespage():
+    return ">"
+
 @app.route("/tags")
 def tagpage():
-    pass
+    return render_template("tags.html")
 
 
 if __name__=="__main__":
