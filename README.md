@@ -1,6 +1,6 @@
 # BE Project
 
-Always push/pull to/from master...
+Always push to your personal branch and then merge with master
 
 
 Database Credentials
