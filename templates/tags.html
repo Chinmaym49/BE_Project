@@ -57,7 +57,7 @@
                                 <li>
                                     <div class="form-group mobi-hide">
                                         <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}" />
-                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Question...">
+                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Tag...">
                                     </div>
                                 </li>
                             </ul>
@@ -100,20 +100,18 @@
                                     }
                                 </style>
                                 <table style="border-spacing: 30px;">
-                                    {% for j in range(start,end,4) %}
+                                    {% for i in range(start,end,4) %}
+                                        {% if end<i+4 %}
+                                            {% set minval=end %}
+                                        {% else %}
+                                            {% set minval=i+4 %}
+                                        {% endif %}
                                         <tr>
+                                            {% for j in range(i,minval) %}
                                             <td>
                                                 <h3>{{tags[j][1]}}</h3>
                                             </td>
-                                            <td>
-                                                <h3>{{tags[j+1][1]}}</h3>
-                                            </td>
-                                            <td>
-                                                <h3>{{tags[j+2][1]}}</h3>
-                                            </td>
-                                            <td>
-                                                <h3>{{tags[j+3][1]}}</h3>
-                                            </td>
+                                            {% endfor %}
                                         </tr>
                                     {% endfor %}
                                 </table>
@@ -147,7 +145,7 @@
                                     {% if page_no!=1 %}
                                         <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
                                     {% endif %}
-                                    {% if page_no!=32 %}
+                                    {% if page_no!=end_page %}
                                         <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
                                     {% endif %}
                                 </center>
