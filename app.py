@@ -127,7 +127,6 @@ def tagpage(page_no):
         rendered_tags=tags
     if request.method=="POST":
         search_string = request.form.get("tag")
-        print(search_string)
         if search_string:
             rendered_tags=[]
             for tag in tags:
