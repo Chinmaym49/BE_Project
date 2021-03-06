@@ -8,6 +8,9 @@ app.permanent_session_lifetime = timedelta(days=10)
 
 conf={"host":"remotemysql.com","user":"xjkizVz0D6","password":"cQDyeM6Uxx","database":"xjkizVz0D6"}
 tags=[]
+rendered_tags=[]
+search_string = ""
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -61,20 +64,32 @@ def questions():
 def profile():
     return "Profile"
 
-@app.route("/tags/<int:page_no>")
+@app.route("/tags/<int:page_no>", methods=["GET", "POST"])
 def tagpage(page_no):
     global tags
+    global rendered_tags
+    global search_string
     if len(tags)==0:
         db=mysql.connector.connect(**conf)
         cur=db.cursor()
         cur.execute("select * from Tag")
         tags=cur.fetchall()
         cur.close()
+        rendered_tags=tags
+    if request.method=="POST":
+        search_string = request.form.get("tag")
+        print(search_string)
+        if search_string:
+            rendered_tags=[]
+            for tag in tags:
+                if search_string in tag[1]:
+                    rendered_tags.append(tag)
+        else:
+            rendered_tags=tags
     start=(page_no-1)*16
-    end=min(len(tags),page_no*16)
-    end_page=math.ceil(len(tags)/16)
-    print(end_page,end)
-    return render_template("tags.html",tags=tags,start=start,end=end,page_no=page_no,end_page=end_page)
+    end=min(len(rendered_tags),page_no*16)
+    end_page=math.ceil(len(rendered_tags)/16)
+    return render_template("tags.html",tags=rendered_tags,start=start,end=end,page_no=page_no,end_page=end_page,search_string=search_string,n=len(rendered_tags))
 
 @app.route("/questions/<string:tag>")
 def quespage(tag):

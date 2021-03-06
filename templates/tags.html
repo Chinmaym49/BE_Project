@@ -53,14 +53,20 @@
             <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
                     <div class="container">
                         <div class="pull-left">
+                            <form method="POST" action="{{url_for('tagpage',page_no=1)}}">
                             <ul class="nav text-center">
                                 <li>
                                     <div class="form-group mobi-hide">
                                         <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}" />
-                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Tag...">
+                                        <input class="input-control stretchRight input-icon-group" name="tag" type='text' value="{{search_string}}" placeholder="Search for a Tag...">
+                                        
                                     </div>
                                 </li>
+                                <li>
+                                <button class="btn btn-round mt--5 bg-orange">Search Tag</button>                                
+                                </li>
                             </ul>
+                        </form>
                         </div>
                         <div class="pull-right">
                             <ul class="nav">
@@ -69,7 +75,7 @@
                                 </li>
                                 <li>
                                     <a href="index.html" class="btn btn-round mt--5 bg-orange">
-                                        Log out
+                                        Logout
                                     </a>                                
                                 </li>
                             </ul>
@@ -85,8 +91,18 @@
                         <div class="panel bg-white">
                             <div class="panel__heading" >
                                 <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
-                                        Tags
-                                </div>                                                        
+                                    {% if n==500 %}
+                                    All Tags
+                                    </div>
+                                    <div class="clearfix bb"></div> 
+                                    {% elif n==0 %}
+                                    No such tag exist
+                                    {% else %}
+                                    {{search_string}} Tags
+                                    </div>
+                                    <div class="clearfix bb"></div> 
+                                    {% endif %}                                                   
+                            </div>                                                        
                             </div>
                             <div class="panel__body m-20">
                                 <style>
@@ -142,11 +158,13 @@
                                     }
                                 </style>
                                 <center>
-                                    {% if page_no!=1 %}
-                                        <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
-                                    {% endif %}
-                                    {% if page_no!=end_page %}
-                                        <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
+                                    {% if n!=0 %}
+                                        {% if page_no!=1 %}
+                                            <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
+                                        {% endif %}
+                                        {% if page_no!=end_page %}
+                                            <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
+                                        {% endif %}
                                     {% endif %}
                                 </center>
                             </div>
