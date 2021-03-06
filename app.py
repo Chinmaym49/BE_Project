@@ -11,6 +11,55 @@ conf = {"host": "remotemysql.com", "user": "xjkizVz0D6",
 tags = []
 
 
+@app.route("/register")
+def register():
+    ''' db = mysql.connector.connect(**conf)
+    mycursor = db.cursor()
+
+    sql = "INSERT INTO User (id, handle, email, password) VALUES (%s, %s, %s, %s)"
+    val = ("1", "Cap", "shaileshborate@gmail.com", "12345678")
+    mycursor.execute(sql, val)
+
+    db.commit()
+
+    print(mycursor.rowcount, "record inserted.")
+    '''
+    return render_template('register.html')
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    msg = ''
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        email = request.form['email']
+        password = request.form['password']
+        print(email, password)
+        db = mysql.connector.connect(**conf)
+        cur = db.cursor()
+
+        cur.execute(
+            'SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
+        account = cur.fetchone()
+        print(account)
+        if account:
+            session['id'] = account[0]
+            session['username'] = account[1]
+            msg = 'Logged in successfully !'
+            print(msg)
+            return render_template('index.html', session=session)
+        else:
+            print(msg)
+            msg = 'Incorrect username / password !'
+    return render_template('login.html')
+
+
+@app.route("/logout")
+def logout():
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     return render_template('index.html')
@@ -21,12 +70,7 @@ def askQuestion():
     if request.method == "POST":
         title = request.form.get("title")
         body = request.form.get("body")
-    return render_template('ask.html')
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    return render_template('login.html')
+    return render_template('ask.html', session=session)
 
 
 @app.route("/questions", methods=["GET", "POST"])
@@ -36,7 +80,7 @@ def questions():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    return "Profile"
+    return session['username']
 
 
 @app.route("/tags/<int:page_no>")
