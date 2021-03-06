@@ -113,8 +113,8 @@ def profile():
     return session['username']
 
 
-@app.route("/tags/<int:page_no>", methods=["GET", "POST"])
-def tagpage(page_no):
+@app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
+def tagpage(page_no,flag):
     global tags
     global rendered_tags
     global search_string
@@ -127,6 +127,7 @@ def tagpage(page_no):
         rendered_tags=tags
     if request.method=="POST":
         search_string = request.form.get("tag")
+        search_string=search_string.lower()
         if search_string:
             rendered_tags=[]
             for tag in tags:
@@ -134,6 +135,9 @@ def tagpage(page_no):
                     rendered_tags.append(tag)
         else:
             rendered_tags=tags
+    if flag=="True":
+        rendered_tags=tags
+        search_string=""
     start=(page_no-1)*16
     end=min(len(rendered_tags),page_no*16)
     end_page=math.ceil(len(rendered_tags)/16)

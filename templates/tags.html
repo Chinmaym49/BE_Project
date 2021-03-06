@@ -27,7 +27,7 @@
                         </a>                        
                     </li>
                     <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('tagpage',page_no=1)}}">
+                        <a class="active-text" href="{{url_for('tagpage',page_no=1,flag=True)}}">
                             <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
                             <span class="sidebar-items__text">Tags</span>
                         </a>                        
@@ -53,7 +53,7 @@
             <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
                     <div class="container">
                         <div class="pull-left">
-                            <form method="POST" action="{{url_for('tagpage',page_no=1)}}">
+                            <form method="POST" action="{{url_for('tagpage',page_no=1,flag=False)}}">
                             <ul class="nav text-center">
                                 <li>
                                     <div class="form-group mobi-hide">
@@ -158,10 +158,10 @@
                                 <center>
                                     {% if n!=0 %}
                                         {% if page_no!=1 %}
-                                            <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
+                                            <a href="{{url_for('tagpage',page_no=page_no-1,flag=False)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
                                         {% endif %}
                                         {% if page_no!=end_page %}
-                                            <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
+                                            <a href="{{url_for('tagpage',page_no=page_no+1,flag=False)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
                                         {% endif %}
                                     {% endif %}
                                 </center>
