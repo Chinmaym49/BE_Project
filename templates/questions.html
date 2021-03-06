@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tags - Stackoverflow lite</title>
+    <title>Questions - Stackoverflow lite</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
 </head>
 <body>
@@ -20,14 +20,14 @@
             <!-- ./logo -->
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
-                    <li class="">
-                        <a href="{{url_for('questions')}}">
+                    <li class="sidebar-items__nav--active">
+                        <a class="active-text" href="{{url_for('questions')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
                     </li>
-                    <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('tagpage',page_no=1)}}">
+                    <li class="">
+                        <a href="{{url_for('tagpage',page_no=1)}}">
                             <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
                             <span class="sidebar-items__text">Tags</span>
                         </a>                        
@@ -85,70 +85,57 @@
                         <div class="panel bg-white">
                             <div class="panel__heading" >
                                 <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
-                                        Tags
-                                </div>                                                        
+                                    {% if f==0 %}
+                                        {{tag}} questions
+                                    {% else %}
+                                        All Questions
+                                    {% endif %}
+                                </div>    
+                                <div class="clearfix bb"></div>                                                    
                             </div>
                             <div class="panel__body m-20">
-                                <style>
-                                    td {
-                                      border-radius: 20px;
-                                      text-align: center;
-                                      padding: 15px;
-                                      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                                      background-color: #f1f1f1;
-                                      min-width: 120px;
-                                    }
-                                </style>
-                                <table style="border-spacing: 30px;">
-                                    {% for i in range(start,end,4) %}
-                                        {% if end<i+4 %}
-                                            {% set minval=end %}
-                                        {% else %}
-                                            {% set minval=i+4 %}
-                                        {% endif %}
-                                        <tr>
-                                            {% for j in range(i,minval) %}
-                                            <td>
-                                                <h3>{{tags[j][1]}}</h3>
-                                            </td>
-                                            {% endfor %}
-                                        </tr>
+                                {% if n==0 %}
+                                    No questions available
+                                {% else %}
+                                    {% for id,title in ques %}
+                                        <div class="question-list-item">
+                                            <div class="col-6">
+                                                <h2>
+                                                    <a class="text-primary" href="">
+                                                        {{title}}
+                                                    </a>
+                                                </h2>
+                                                {% for t in tags[loop.index] %}
+                                                    <button class="btn btn-badge btn-link">
+                                                        {{t}}
+                                                    </button>
+                                                {% endfor %}
+                                                <h5 class="text-grey">Asked by<span class="text-primary">{{users[loop.index][1]}}</span></h5>
+                                            </div> 
+                                            <!-- right icons  -->
+                                            <div class="col-6">
+                                                <h4>&nbsp;</h4>
+                                                <table class="text-center stats-box">
+                                                    <tr>
+                                                        <td>
+                                                            {{anscnt[loop.index]}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Answers</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <img class="icon fadeIn" src="./assets/img/se.png" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <!-- ./right icons -->
+                                        </div>
+                                        <div class="clearfix bb"></div>
                                     {% endfor %}
-                                </table>
-                                <style>         
-                                    #aa {
-                                        text-decoration: none;
-                                        display: inline-block;
-                                        padding: 8px 16px;
-                                    }
-                                    
-                                    #aa:hover {
-                                        background-color: #ddd;
-                                        color: black;
-                                    }
-                                    
-                                    .previous {
-                                        background-color: #f1f1f1;
-                                        color: black;
-                                    }
-                                    
-                                    .next {
-                                        background-color: #f1f1f1;
-                                        color: black;
-                                    }
-                                    
-                                    .round {
-                                        border-radius: 50%;
-                                    }
-                                </style>
-                                <center>
-                                    {% if page_no!=1 %}
-                                        <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
-                                    {% endif %}
-                                    {% if page_no!=end_page %}
-                                        <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
-                                    {% endif %}
-                                </center>
+                                {% endif %}
                             </div>
                         </div>
                     </div>                   
