@@ -1,5 +1,5 @@
 from flask import Flask, session, request, redirect, render_template, url_for, flash, jsonify
-import mysql.connector
+import mysql.connector, math
 from datetime import timedelta, datetime
 
 app = Flask(__name__)
@@ -43,7 +43,9 @@ def tagpage(page_no):
         cur.close()
     start=(page_no-1)*16
     end=min(len(tags),page_no*16)
-    return render_template("tags.html",tags=tags,start=start,end=end,page_no=page_no)
+    end_page=math.ceil(len(tags)/16)
+    print(end_page,end)
+    return render_template("tags.html",tags=tags,start=start,end=end,page_no=page_no,end_page=end_page)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
