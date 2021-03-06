@@ -35,6 +35,7 @@
               <li>
                 <a href="{{url_for('profile')}}">Profile</a>
               </li>
+              {%if 'id' not in session.keys()%}
               <li>
                 <a
                   href="{{url_for('login')}}"
@@ -43,6 +44,24 @@
                   Login
                 </a>
               </li>
+              <li>
+                <a
+                  href="{{url_for('register')}}"
+                  class="text-white floating btn btn-round mt--5 bg-orange"
+                >
+                  Sign Up
+                </a>
+              </li>
+              {%endif%} {%if 'id' in session.keys()%}
+              <li>
+                <a
+                  href="{{url_for('logout')}}"
+                  class="btn btn-round mt--5 bg-orange"
+                >
+                  Log out
+                </a>
+              </li>
+              {%endif%}
             </ul>
           </div>
         </div>
@@ -65,40 +84,6 @@
                 How it works
               </button>
             </div>
-          </div>
-          <div class="col-4 pull-right">
-            <h4 class="text-primary header-title">Join our community</h4>
-            <form class="form-container" action="questions.html">
-              <div class="form-group">
-                <input
-                  class="stretchRight input-control"
-                  type="text"
-                  placeholder="USERNAME"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="stretchRight input-control"
-                  type="email"
-                  placeholder="EMAIL"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="stretchRight input-control"
-                  type="password"
-                  placeholder="PASSWORD"
-                />
-              </div>
-              <div class="form-group">
-                <button
-                  onclick="window.location.href='questions.html'"
-                  class="floating btn btn-primary bg-orange p-15 btn-block"
-                >
-                  Sign Up
-                </button>
-              </div>
-            </form>
           </div>
         </div>
         <!-- ./wrapper -->
