@@ -27,7 +27,7 @@
                         </a>                        
                     </li>
                     <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('tagpage',page_no=page_no)}}">
+                        <a class="active-text" href="{{url_for('tagpage',page_no=1)}}">
                             <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
                             <span class="sidebar-items__text">Tags</span>
                         </a>                        
@@ -81,73 +81,76 @@
             <div class="clearfix"></div>
             <div class="main-wrapper">
                 <div class="container">
-                    <div class="col-6">
+                    <div class="col-6" style="width: 800px;">
                         <div class="panel bg-white">
                             <div class="panel__heading" >
-                                <div class="mega-text hatch text-primary">
+                                <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
                                         Tags
                                 </div>                                                        
                             </div>
                             <div class="panel__body m-20">
                                 <style>
                                     td {
-                                      border-radius: 5px;
+                                      border-radius: 20px;
                                       text-align: center;
                                       padding: 15px;
                                       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                                       background-color: #f1f1f1;
+                                      min-width: 120px;
                                     }
                                 </style>
                                 <table style="border-spacing: 30px;">
-                                            {% for j in range(start,end,4) %}
-                                            <tr>
-                                                <td>
-                                                    <h3>{{tags[j][1]}}</h3>
-                                                </td>
-                                                <td>
-                                                    <h3>{{tags[j+1][1]}}</h3>
-                                                </td>
-                                                <td>
-                                                    <h3>{{tags[j+2][1]}}</h3>
-                                                </td>
-                                                <td>
-                                                    <h3>{{tags[j+3][1]}}</h3>
-                                                </td>
-                                            </tr>
-                                            {% endfor %}
+                                    {% for j in range(start,end,4) %}
+                                        <tr>
+                                            <td>
+                                                <h3>{{tags[j][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[j+1][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[j+2][1]}}</h3>
+                                            </td>
+                                            <td>
+                                                <h3>{{tags[j+3][1]}}</h3>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </table>
                                 <style>         
-                                #aa {
-                                    text-decoration: none;
-                                    display: inline-block;
-                                    padding: 8px 16px;
-                                }
-                                
-                                #aa:hover {
-                                    background-color: #ddd;
-                                    color: black;
-                                }
-                                
-                                .previous {
-                                    background-color: #f1f1f1;
-                                    color: black;
-                                }
-                                
-                                .next {
-                                    background-color: #f1f1f1;
-                                    color: black;
-                                }
-                                
-                                .round {
-                                    border-radius: 50%;
-                                }
-                                </style> 
-                                {% if page_no!=1 %}
-                                <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round">&#8249;</a>
-                                {% endif %}
-                                {% if page_no!=32 %}
-                                <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" style="float:right;" class="next round">&#8250;</a>
-                                {% endif %}
+                                    #aa {
+                                        text-decoration: none;
+                                        display: inline-block;
+                                        padding: 8px 16px;
+                                    }
+                                    
+                                    #aa:hover {
+                                        background-color: #ddd;
+                                        color: black;
+                                    }
+                                    
+                                    .previous {
+                                        background-color: #f1f1f1;
+                                        color: black;
+                                    }
+                                    
+                                    .next {
+                                        background-color: #f1f1f1;
+                                        color: black;
+                                    }
+                                    
+                                    .round {
+                                        border-radius: 50%;
+                                    }
+                                </style>
+                                <center>
+                                    {% if page_no!=1 %}
+                                        <a href="{{url_for('tagpage',page_no=page_no-1)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
+                                    {% endif %}
+                                    {% if page_no!=32 %}
+                                        <a href="{{url_for('tagpage',page_no=page_no+1)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
+                                    {% endif %}
+                                </center>
                             </div>
                         </div>
                     </div>                   
