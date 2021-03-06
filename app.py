@@ -26,7 +26,36 @@ def login():
 
 @app.route("/questions", methods=["GET", "POST"])
 def questions():
-    return "Questions"
+    db=mysql.connector.connect(**conf)
+    cur=db.cursor()
+    query="select Question.id,Question.title from Question"
+    cur.execute(query)
+    ques=cur.fetchall()
+    cur.close()
+    tags=[]
+    anscnt=[]
+    users=[]
+    for id,title in ques:
+        cur=db.cursor()
+        query="select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid,QuesTag.tid=Tag.id,Question.id=?".format(id)
+        cur.execute(query)
+        tgs=cur.fetchall()
+        cur.close()
+        tags.append([t for t in tgs])
+
+        query="select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid,QuesAns.aid=Answer.id,Question.id=?".format(id)
+        cur.execute(query)
+        c=cur.fetchall()
+        cur.close()
+        anscnt.append(c[0][0])
+
+        query="select Question.uid,User.handle from Question,User where Question.id=?,Question.uid=User.id".format(id)
+        cur.execute(query)
+        u=cur.fetchall()
+        cur.close()
+        users.append(u)
+
+    return render_template("questions.html",ques=ques,n=len(ques),tags=tags,anscnt=anscnt,users=users,f=1)
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
@@ -46,6 +75,10 @@ def tagpage(page_no):
     end_page=math.ceil(len(tags)/16)
     print(end_page,end)
     return render_template("tags.html",tags=tags,start=start,end=end,page_no=page_no,end_page=end_page)
+
+@app.route("/questions/<string:tag>")
+def quespage(tag):
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
