@@ -37,7 +37,7 @@
               </a>
             </li>
             <li class="">
-              <a href="{{url_for('tagpage')}}">
+              <a href="{{url_for('tagpage',page_no=1)}}">
                 <img
                   class="icon"
                   src="{{ url_for('static',filename='img/price-tag.svg') }}"
@@ -88,48 +88,22 @@
                 </li>
               </ul>
             </div>
-<<<<<<< HEAD
             <div class="pull-right">
               <ul class="nav">
                 <li>
                   <a href="{{url_for('home')}}">Home</a>
                 </li>
+                {%if 'id' in session.keys()%}
                 <li>
-                  <a href="index.html" class="btn btn-round mt--5 bg-orange">
+                  <a
+                    href="{{url_for('logout')}}"
+                    class="btn btn-round mt--5 bg-orange"
+                  >
                     Log out
                   </a>
                 </li>
+                {%endif%}
               </ul>
-=======
-            <!-- ./logo -->
-            <div class="sidebar-items">
-                <ul class="sidebar-items__nav nav column">
-                    <li class="">
-                        <a href="{{url_for('questions')}}">
-                            <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
-                            <span class="sidebar-items__text">Questions</span>
-                        </a>                        
-                    </li>
-                    <li class="">
-                        <a href="{{url_for('tagpage',page_no=1)}}">
-                            <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
-                            <span class="sidebar-items__text">Tags</span>
-                        </a>                        
-                    </li>
-                    <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('askQuestion')}}">
-                            <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
-                            <span class="sidebar-items__text">Ask a Question</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{url_for('profile')}}">
-                            <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
-                            <span class="sidebar-items__text">Profile</span>
-                        </a>
-                    </li>
-                </ul>
->>>>>>> cc2146f31dd9ef55cf6e7db7e0ed99252adf9eaf
             </div>
           </div>
         </div>
