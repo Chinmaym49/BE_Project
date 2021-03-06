@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questions - Stackoverflow lite</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
+</head>
+<body>
+    <div class="main">
+        <!-- sidebar -->
+        <div class=" mobi-hide sidebar col-3 navbar-primary full-height">
+            <!-- logo -->
+            <div>
+                <a href="">
+                    <img class="sidebar__logo-backend" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo">
+                </a>
+            </div>
+            <!-- ./logo -->
+            <div class="sidebar-items">
+                <ul class="sidebar-items__nav nav column">
+                    <li class="sidebar-items__nav--active">
+                        <a class="active-text" href="{{url_for('questions')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
+                            <span class="sidebar-items__text">Questions</span>
+                        </a>                        
+                    </li>
+                    <li class="">
+                        <a href="{{url_for('tagpage',page_no=1)}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
+                            <span class="sidebar-items__text">Tags</span>
+                        </a>                        
+                    </li>
+                    <li class="">
+                        <a href="{{url_for('askQuestion')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
+                            <span class="sidebar-items__text">Ask a Question</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('profile')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
+                            <span class="sidebar-items__text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ./sidebar -->
+        <div class="body-wrapper col-10 ">
+            <!-- navbar -->
+            <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+                    <div class="container">
+                        <div class="pull-left">
+                            <ul class="nav text-center">
+                                <li>
+                                    <div class="form-group mobi-hide">
+                                        <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}" />
+                                        <input class="input-control stretchRight input-icon-group" type='text' placeholder="Search for a Tag...">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{url_for('home')}}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="index.html" class="btn btn-round mt--5 bg-orange">
+                                        Log out
+                                    </a>                                
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <!-- ./navbar -->
+            <!-- list -->
+            <div class="clearfix"></div>
+            <div class="main-wrapper">
+                <div class="container">
+                    <div class="col-6" style="width: 800px;">
+                        <div class="panel bg-white">
+                            <div class="panel__heading" >
+                                <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
+                                    {% if f==0 %}
+                                        {{tag}} questions
+                                    {% else %}
+                                        All Questions
+                                    {% endif %}
+                                </div>    
+                                <div class="clearfix bb"></div>                                                    
+                            </div>
+                            <div class="panel__body m-20">
+                                {% if n==0 %}
+                                    No questions available
+                                {% else %}
+                                    {% for id,title in ques %}
+                                        <div class="question-list-item">
+                                            <div class="col-6">
+                                                <h2>
+                                                    <a class="text-primary" href="">
+                                                        {{title}}
+                                                    </a>
+                                                </h2>
+                                                {% for t in tags[loop.index] %}
+                                                    <button class="btn btn-badge btn-link">
+                                                        {{t}}
+                                                    </button>
+                                                {% endfor %}
+                                                <h5 class="text-grey">Asked by<span class="text-primary">{{users[loop.index][1]}}</span></h5>
+                                            </div> 
+                                            <!-- right icons  -->
+                                            <div class="col-6">
+                                                <h4>&nbsp;</h4>
+                                                <table class="text-center stats-box">
+                                                    <tr>
+                                                        <td>
+                                                            {{anscnt[loop.index]}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Answers</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <img class="icon fadeIn" src="./assets/img/se.png" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <!-- ./right icons -->
+                                        </div>
+                                        <div class="clearfix bb"></div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            <!-- ./list -->
+        </div>
+
+    </div>
+</body>
+
+<!-- <script src="./js/main.js"></script> -->
+</html>
+
