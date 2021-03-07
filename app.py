@@ -127,11 +127,11 @@ def tagpage(page_no,flag):
         rendered_tags=tags
     if request.method=="POST":
         search_string = request.form.get("tag")
-        search_string=search_string.lower()
         if search_string:
+            search_string_lower=search_string.lower()
             rendered_tags=[]
             for tag in tags:
-                if tag[1].endswith(search_string) or tag[1].startswith(search_string):
+                if tag[1].endswith(search_string_lower) or tag[1].startswith(search_string_lower):
                     rendered_tags.append(tag)
         else:
             rendered_tags=tags
