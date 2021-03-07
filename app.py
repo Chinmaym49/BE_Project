@@ -74,38 +74,47 @@ def askQuestion():
     return render_template('ask.html', session=session)
 
 
-@app.route("/questions", methods=["GET", "POST"])
-def questions():
+@app.route("/questions/<string:tag>", methods=["GET", "POST"])
+def questions(tag):
     db=mysql.connector.connect(**conf)
     cur=db.cursor()
-    query="select Question.id,Question.title from Question"
+    if tag=="all":
+        query="select id,title from Question"
+    else:
+        query="select id from Tag where tag='{}'".format(tag)
+        cur.execute(query)
+        tid=cur.fetchone()[0]
+        query="select Question.id,Question.title from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
     cur.execute(query)
     ques=cur.fetchall()
     cur.close()
+
     tags=[]
     anscnt=[]
     users=[]
     for id,title in ques:
         cur=db.cursor()
-        query="select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid,QuesTag.tid=Tag.id,Question.id=?".format(id)
+        query="select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(id)
         cur.execute(query)
         tgs=cur.fetchall()
         cur.close()
         tags.append([t for t in tgs])
 
-        query="select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid,QuesAns.aid=Answer.id,Question.id=?".format(id)
+        cur=db.cursor()
+        query="select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
         cur.execute(query)
-        c=cur.fetchall()
+        c=cur.fetchone()
         cur.close()
-        anscnt.append(c[0][0])
+        anscnt.append(c[0])
 
-        query="select Question.uid,User.handle from Question,User where Question.id=?,Question.uid=User.id".format(id)
+        cur=db.cursor()
+        query="select Question.uid,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
         cur.execute(query)
         u=cur.fetchall()
         cur.close()
         users.append(u)
 
-    return render_template("questions.html",ques=ques,n=len(ques),tags=tags,anscnt=anscnt,users=users,f=1)
+    return render_template("questions.html",ques=ques,n=len(ques),tags=tags,anscnt=anscnt,users=users,tag=tag)
 
 
 @app.route("/profile", methods=["GET", "POST"])
@@ -142,10 +151,6 @@ def tagpage(page_no,flag):
     end=min(len(rendered_tags),page_no*16)
     end_page=math.ceil(len(rendered_tags)/16)
     return render_template("tags.html",tags=rendered_tags,start=start,end=end,page_no=page_no,end_page=end_page,search_string=search_string,n=len(rendered_tags))
-
-@app.route("/questions/<string:tag>")
-def quespage(tag):
-    pass
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
