@@ -48,8 +48,8 @@ def login():
             print(msg)
             return render_template('index.html', session=session)
         else:
-            print(msg)
             msg = 'Incorrect username / password !'
+            print(msg)
     return render_template('login.html')
 
 
@@ -131,7 +131,7 @@ def tagpage(page_no,flag):
         if search_string:
             rendered_tags=[]
             for tag in tags:
-                if search_string in tag[1]:
+                if tag[1].endswith(search_string) or tag[1].startswith(search_string):
                     rendered_tags.append(tag)
         else:
             rendered_tags=tags
