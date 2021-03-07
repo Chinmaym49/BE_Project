@@ -21,7 +21,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="{{url_for('questions')}}">
+                        <a href="{{url_for('questions',tag='all')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -87,7 +87,7 @@
             <div class="clearfix"></div>
             <div class="main-wrapper">
                 <div class="container">
-                    <div class="col-6" style="width: 800px;">
+                    <div class="col-6" style="width: 750px;">
                         <div class="panel bg-white">
                             <div class="panel__heading" >
                                 <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
@@ -105,12 +105,15 @@
                             <div class="panel__body m-20">
                                 <style>
                                     td {
-                                      border-radius: 20px;
-                                      text-align: center;
-                                      padding: 15px;
-                                      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                                      background-color: #f1f1f1;
-                                      min-width: 120px;
+                                        border-radius: 20px;
+                                        text-align: center;
+                                        padding: 10px;
+                                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+                                        background-color: #f1f1f1;
+                                        min-width: 120px;
+                                    }
+                                    td:hover {
+                                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
                                     }
                                 </style>
                                 <table style="border-spacing: 30px;">
@@ -122,9 +125,11 @@
                                         {% endif %}
                                         <tr>
                                             {% for j in range(i,minval) %}
-                                            <td>
-                                                <h3>{{tags[j][1]}}</h3>
-                                            </td>
+                                                <td onclick="location.href='{{url_for('questions',tag=tags[j][1])}}'">
+                                                    <h3>
+                                                        {{tags[j][1]}}
+                                                    </h3>
+                                                </td>
                                             {% endfor %}
                                         </tr>
                                     {% endfor %}
