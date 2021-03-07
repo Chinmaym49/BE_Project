@@ -21,7 +21,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('questions')}}">
+                        <a class="active-text" href="{{url_for('questions',tag='all')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -85,7 +85,7 @@
                         <div class="panel bg-white">
                             <div class="panel__heading" >
                                 <div class="mega-text hatch text-primary" style="margin-top: 10px; margin-bottom: 10px;">
-                                    {% if f==0 %}
+                                    {% if tag!="all" %}
                                         {{tag}} questions
                                     {% else %}
                                         All Questions
