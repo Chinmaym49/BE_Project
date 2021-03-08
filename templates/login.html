@@ -6,6 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Stackoverflow lite - UI</title>
     <link rel="stylesheet" href="../static/css/styles.css" />
+    <style>
+      .alert {
+        padding: 10px;
+        background-color: #f44336;
+        color: white;
+        border-radius: 50px;
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .closebtn:hover {
+        color: black;
+      }
+    </style>
   </head>
   <body>
     <div class="main header-bg">
@@ -14,6 +40,12 @@
         <div class="card card-signup col-4">
           <form class="form" action="{{url_for('login')}}" method="POST">
             <div class="header hatch header-text header-primary">LOGIN</div>
+            {% for msg in get_flashed_messages() %}
+              <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                  {{msg}}
+              </div>
+            {% endfor %}
             <div class="form-container mt-20 p-15">
               <div class="form-group">
                 <input
@@ -46,7 +78,7 @@
               <div class="form-">
                 <a href="{{url_for('home')}}"> Back Home </a>
                 <br />
-                <a href="{{url_for('register')}}"> Dont have an account? </a>
+                <a href="{{url_for('register')}}"> Don't have an account? Create one! </a>
               </div>
             </div>
           </form>

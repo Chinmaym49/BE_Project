@@ -15,8 +15,8 @@
         <div class=" mobi-hide sidebar col-3 navbar-primary full-height">
             <!-- logo -->
             <div>
-                <a href="#">
-                    <img class="fadeIn sidebar__logo-backend" src="../static/img/logo.png" alt="logo">
+                <a href="{{url_for('home')}}">
+                    <img class="sidebar__logo-backend" src="../static/img/logo.png" alt="logo">
                 </a>
             </div>
             <!-- ./logo -->
@@ -70,7 +70,7 @@
                             </li>
                             <li>
                                 <div class="form-group mobi-hide">
-                                    <img class="icon input-icon fadeIn" src="../static/img/loupe.svg" />
+                                    <img class="icon input-icon" src="../static/img/loupe.svg" />
                                     <input class="input-control stretchRight input-icon-group" type='text'
                                         placeholder="Search..">
                                 </div>
@@ -79,12 +79,6 @@
                     </div>
                     <div class="pull-right">
                         <ul class="nav">
-                            <li>
-                                <a href="{{url_for('home')}}">Home</a>
-                            </li>
-                            <li>
-                                <a href="#" class="floating">Try Premium account</a>
-                            </li>
                             <li>
                                 <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
                                     Log out

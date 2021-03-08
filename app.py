@@ -62,12 +62,12 @@ def login():
             session['id'] = account[0]
             session['username'] = account[1]
             session['email'] = account[2]
-            msg = 'Logged in successfully !'
-            print(session)
+            msg = 'Logged in successfully!'
+            flash(msg)
             return redirect(url_for('home'))
         else:
-            msg = 'Incorrect username / password !'
-            print(msg)
+            msg = 'Incorrect username/password!'
+            flash(msg)
     return render_template('login.html')
 
 
@@ -76,6 +76,7 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     session.pop('email', None)
+    flash("Logged out successfully!")
     return redirect(url_for('home'))
 
 
@@ -226,8 +227,6 @@ def profile():
 
 @app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
 def tagpage(page_no, flag):
-    # global rendered_tags
-    # global search_string
     if request.method == "POST":
         search_string = request.form.get("tag")
         if search_string:
