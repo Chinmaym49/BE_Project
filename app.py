@@ -67,7 +67,7 @@ def login():
             session['username'] = account[1]
             msg = 'Logged in successfully !'
             print(msg)
-            return render_template('index.html', session=session)
+            return redirect(url_for('home'))
         else:
             msg = 'Incorrect username / password !'
             print(msg)
@@ -88,9 +88,6 @@ def home():
 
 @app.route("/askQuestion", methods=["GET", "POST"])
 def askQuestion():
-    # Dummy session variables used for testing
-    # session['username']="dummy"
-    # session['id']=1000
     if 'username' in session:
         if request.method == "POST":
             title = request.form.get("title")

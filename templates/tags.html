@@ -92,8 +92,8 @@
                                 </li>
                                 {%endif%} {%if 'id' in session.keys()%}
                                 <li>
-                                    <a href="index.html" class="btn btn-round mt--5 bg-orange">
-                                        Logout
+                                    <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
+                                        Log out
                                     </a>                                
                                 </li>
                                 {%endif%}
