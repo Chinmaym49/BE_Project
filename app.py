@@ -65,8 +65,9 @@ def login():
         if account:
             session['id'] = account[0]
             session['username'] = account[1]
+            session['email'] = account[2]
             msg = 'Logged in successfully !'
-            print(msg)
+            print(session)
             return redirect(url_for('home'))
         else:
             msg = 'Incorrect username / password !'
@@ -78,6 +79,7 @@ def login():
 def logout():
     session.pop('id', None)
     session.pop('username', None)
+    session.pop('email', None)
     return redirect(url_for('home'))
 
 
@@ -204,7 +206,7 @@ def questions(tag):
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
     if 'username' in session:
-        return session['username']
+        return render_template('profile.html', session=session)
     else:
         return redirect(url_for('login'))
 
