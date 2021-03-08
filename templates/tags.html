@@ -73,11 +73,30 @@
                                 <li>
                                     <a href="{{url_for('home')}}">Home</a>
                                 </li>
+                                {%if 'id' not in session.keys()%}
+                                <li>
+                                    <a
+                                    href="{{url_for('login')}}"
+                                    class="text-white floating btn btn-round mt--5 bg-orange"
+                                    >
+                                    Login
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                    href="{{url_for('register')}}"
+                                    class="text-white floating btn btn-round mt--5 bg-orange"
+                                    >
+                                    Sign Up
+                                    </a>
+                                </li>
+                                {%endif%} {%if 'id' in session.keys()%}
                                 <li>
                                     <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
                                         Log out
                                     </a>                                
                                 </li>
+                                {%endif%}
                             </ul>
                         </div>
                     </div>
