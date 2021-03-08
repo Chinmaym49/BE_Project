@@ -32,6 +32,8 @@ def register():
     db.commit()
 
     print(mycursor.rowcount, "record inserted.")
+    mycursor.close()
+    db.close()
     '''
     return render_template('register.html')
 
@@ -50,6 +52,8 @@ def login():
             'SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
         account = cur.fetchone()
         print(account)
+        cur.close()
+        db.close()
         if account:
             session['id'] = account[0]
             session['username'] = account[1]
@@ -66,7 +70,7 @@ def login():
 def logout():
     session.pop('id', None)
     session.pop('username', None)
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 
 
@@ -119,12 +123,8 @@ def askQuestion():
                 dop=datetime.now()
                 print(dop)
                 cur.execute('INSERT INTO Question(uid,title,body,dop) values(%s,%s,%s,%s)',(session['id'],title,body,dop))
+                qid=cur.lastrowid
                 db.commit()
-                cur.close()
-
-                cur=db.cursor()
-                cur.execute('SELECT id from Question WHERE uid=%s and title=%s and body=%s',(session['id'],title,body))
-                qid=cur.fetchall()
                 cur.close()
 
                 tag_id=[]
@@ -140,6 +140,7 @@ def askQuestion():
                     db.commit()
                     cur.close()
                 # TO DO - Direct to the uploaded question page
+            db.close()
     else:
         return redirect(url_for('login'))
     return render_template('ask.html', session=session,duplicate_questions=[])
@@ -160,7 +161,7 @@ def questions(tag):
     ques=cur.fetchall()
     cur.close()
 
-    tags=[]
+    tags_list=[]
     anscnt=[]
     users=[]
     for id,title in ques:
@@ -169,7 +170,7 @@ def questions(tag):
         cur.execute(query)
         tgs=cur.fetchall()
         cur.close()
-        tags.append([t for t in tgs])
+        tags_list.append([t[0] for t in tgs])
 
         cur=db.cursor()
         query="select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
@@ -179,13 +180,14 @@ def questions(tag):
         anscnt.append(c[0])
 
         cur=db.cursor()
-        query="select Question.uid,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
+        query="select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
         cur.execute(query)
         u=cur.fetchall()
         cur.close()
-        users.append(u)
+        users.append(u[0])
 
-    return render_template("questions.html",ques=ques,n=len(ques),tags=tags,anscnt=anscnt,users=users,tag=tag)
+    db.close()
+    return render_template("questions.html",ques=ques,n=len(ques),tags=tags_list,anscnt=anscnt,users=users,tag=tag)
 
 
 @app.route("/profile", methods=["GET", "POST"])
@@ -195,8 +197,8 @@ def profile():
 
 @app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
 def tagpage(page_no,flag):
-    global rendered_tags
-    global search_string
+    # global rendered_tags
+    # global search_string
     if request.method=="POST":
         search_string = request.form.get("tag")
         if search_string:
