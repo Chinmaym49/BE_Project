@@ -105,12 +105,12 @@
                                                         {{title}}
                                                     </a>
                                                 </h2>
-                                                {% for t in tags[loop.index] %}
+                                                {% for t in tags[loop.index0] %}
                                                     <button class="btn btn-badge btn-link">
                                                         {{t}}
                                                     </button>
                                                 {% endfor %}
-                                                <h5 class="text-grey">Asked by<span class="text-primary">{{users[loop.index][1]}}</span></h5>
+                                                <h5 class="text-grey">Asked by <span class="text-primary">{{users[loop.index0][1]}}</span></h5>
                                             </div> 
                                             <!-- right icons  -->
                                             <div class="col-6">
@@ -118,7 +118,7 @@
                                                 <table class="text-center stats-box">
                                                     <tr>
                                                         <td>
-                                                            {{anscnt[loop.index]}}
+                                                            {{anscnt[loop.index0]}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -126,7 +126,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <img class="icon fadeIn" src="./assets/img/se.png" />
+                                                            <img class="icon" src="{{ url_for('static',filename='img/paper-plane.svg') }}" />
                                                         </td>
                                                     </tr>
                                                 </table>
