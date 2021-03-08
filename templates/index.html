@@ -7,6 +7,30 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Stackoverflow lite - UI</title>
   <link rel="stylesheet" href="../static/css/styles.css" />
+  <style>
+    .alert {
+      padding: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 50px;
+      margin-top: 20px;
+    }
+    
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
 </head>
 
 <body>
@@ -57,6 +81,12 @@
     </div>
     <!-- ./navbar -->
     <div class="container">
+      {% for msg in get_flashed_messages() %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            {{msg}}
+        </div>
+      {% endfor %}
       <div class="wrapper">
         <div class="col-6 mt-100 hatch">
           <h1 class="title">Ask The Experts</h1>
