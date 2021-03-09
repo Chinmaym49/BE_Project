@@ -108,7 +108,6 @@ def askQuestion():
             cur = db.cursor()
             cur.execute(query)
             questions = cur.fetchall()
-            cur.close()
 
             duplicate_questions = []
             for question in questions:
@@ -124,36 +123,27 @@ def askQuestion():
                 anscnt = []
                 users = []
                 for duplicate_question in duplicate_questions:
-                    cur = db.cursor()
                     query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(duplicate_question[0])
                     cur.execute(query)
                     tgs = cur.fetchall()
-                    cur.close()
                     tags_list.append([t[0] for t in tgs])
 
-                    cur = db.cursor()
                     query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(duplicate_question[0])
                     cur.execute(query)
                     c = cur.fetchone()
-                    cur.close()
                     anscnt.append(c[0])
 
-                    cur = db.cursor()
                     query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(duplicate_question[0])
                     cur.execute(query)
                     u = cur.fetchall()
-                    cur.close()
                     users.append(u[0])
 
-                db.close()
                 return render_template('ask.html',n=len(duplicate_questions), duplicate_questions=duplicate_questions, tags=tags_list, anscnt=anscnt, users=users)
             else:
-                cur = db.cursor()
                 dop = datetime.now()
                 cur.execute('INSERT INTO Question(uid,title,body,dop) values(%s,%s,%s,%s)',(session['id'], title, body, dop))
                 qid = cur.lastrowid
                 db.commit()
-                cur.close()
 
                 tag_id = []
                 for tag in tags_list:
@@ -162,12 +152,11 @@ def askQuestion():
                             tag_id.append(record[0])
                             break
                 for id in tag_id:
-                    cur = db.cursor()
                     cur.execute('INSERT INTO QuesTag(qid,tid) values(%s,%s)', (qid, id))
                     db.commit()
-                    cur.close()
                 # TO DO - Direct to the uploaded question page
             db.close()
+            cur.close()
     else:
         return redirect(url_for('login'))
     return render_template('ask.html',n=0)
@@ -194,33 +183,27 @@ def questions(tag):
         query = "select Question.id,Question.title from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
     cur.execute(query)
     ques = cur.fetchall()
-    cur.close()
 
     tags_list = []
     anscnt = []
     users = []
     for id, title in ques:
-        cur = db.cursor()
         query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(id)
         cur.execute(query)
         tgs = cur.fetchall()
-        cur.close()
         tags_list.append([t[0] for t in tgs])
 
-        cur = db.cursor()
         query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
         cur.execute(query)
         c = cur.fetchone()
-        cur.close()
         anscnt.append(c[0])
 
-        cur = db.cursor()
         query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
         cur.execute(query)
         u = cur.fetchall()
-        cur.close()
         users.append(u[0])
 
+    cur.close()
     db.close()
     return render_template("questions.html", ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users, tag=tag)
 
