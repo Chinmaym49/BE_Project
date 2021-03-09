@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='css/styles.css') }}"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="main">
@@ -69,30 +70,19 @@
       <!-- ./sidebar -->
       <div class="body-wrapper col-10">
         <!-- navbar -->
-        <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+        <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top" style="height: 58px;">
           <div class="container">
             <div class="pull-left">
               <ul class="nav text-center">
                 <li>
-                  <div class="form-group mobi-hide">
-                    <img
-                      class="icon input-icon"
-                      src="{{ url_for('static',filename='img/loupe.svg') }}"
-                    />
-                    <input
-                      class="input-control stretchRight input-icon-group"
-                      type="text"
-                      placeholder="Search for a Tag..."
-                    />
-                  </div>
+                  <a class="open-button text-white floating btn btn-round mt--5 bg-orange" onclick="openForm()">
+                    Filter by tags
+                  </a>
                 </li>
               </ul>
             </div>
             <div class="pull-right">
               <ul class="nav">
-                <li>
-                  <a href="{{url_for('home')}}">Home</a>
-                </li>
                 {%if 'id' not in session.keys()%}
                 <li>
                   <a
@@ -130,6 +120,18 @@
         <div class="main-wrapper">
           <div class="container">
             <div class="col-6" style="width: 800px">
+              <div class="form-popup" id="myForm">
+                <div class="form-container">
+                  <button type="button" onclick="closeForm()" style="right: 10px; top: 10px; position: fixed; border-radius:100%; border: none;">&#x2715</button>
+                  <div class="select-wrapper">
+                    <p class="text-primary" style="font-size: xx-large;"><b>Enter tags</b></p>
+                    <span class="autocomplete-select"></span>
+                    <br>
+                  </div>
+                  <center><button class="text-white btn btn-round mt--5 bg-orange" style="height: 40px;" onclick="set()">Search</button></center>
+                  <input type="hidden" id="tags" name="tags">
+                </div>
+              </div>
               <div class="panel bg-white">
                 <div class="panel__heading">
                   <div
@@ -148,7 +150,7 @@
                   <div class="question-list-item">
                     <div class="col-6">
                       <h2>
-                        <a class="text-primary" href=""> {{title}} </a>
+                        <a class="text-primary" href="#"> {{title}} </a>
                       </h2>
                       {% for t in tags[loop.index0] %}
                       <button class="btn btn-badge btn-link">{{t}}</button>
@@ -192,6 +194,9 @@
         <!-- ./list -->
       </div>
     </div>
+    <script src="{{url_for('static',filename='js/bundle.min.js')}}"></script>
+		<script src="{{url_for('static',filename='js/autocomp.js')}}"></script>
+		<link rel="stylesheet" href="{{url_for('static',filename='css/autocomp.css')}}">
   </body>
 
   <!-- <script src="./js/main.js"></script> -->
