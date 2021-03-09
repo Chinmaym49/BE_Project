@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tags - Stackoverflow lite</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
     <div class="main">
@@ -57,13 +58,11 @@
                             <ul class="nav text-center">
                                 <li>
                                     <div class="form-group mobi-hide">
-                                        <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}" />
                                         <input class="input-control stretchRight input-icon-group" name="tag" type='text' value="{{search_string}}" placeholder="Search for a Tag...">
-                                        
                                     </div>
                                 </li>
                                 <li>
-                                <button class="btn btn-round mt--5 bg-orange">Search Tag</button>                                
+                                <button class="round bg-orange" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border: none; height: 30px; width: 30px; padding: 0px;"><i class="material-icons" style="padding-top: 3px;">search</i></button>    
                                 </li>
                             </ul>
                         </form>
