@@ -16,12 +16,12 @@ tags = [(3001, 'c#'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (3005
         (3201, 'scala'), (3202, 'iframe'), (3203, 'logging'), (3204, 'pdf'), (3205, 'blackberry'), (3206, 'curl'), (3207, 'mongodb'), (3208, 'layout'), (3209, 'asp.net-mvc-2'), (3210, 'file-io'), (3211, 'spring-mvc'), (3212, 'plugins'), (3213, 'excel-vba'), (3214, 'mvvm'), (3215, 'serialization'), (3216, 'drop-down-menu'), (3217, 'application'), (3218, 'windows-xp'), (3219, 'nhibernate'), (3220, 'core-data'), (3221, 'windows-server-2008'), (3222, 'jquery-plugins'), (3223, 'jsf-2'), (3224, 'asp-classic'), (3225, 'dynamic'), (3226, 'user-interface'), (3227, 'data-structures'), (3228, 'dns'), (3229, 'maven'), (3230, 'opencv'), (3231, 'netbeans'), (3232, 'scripting'), (3233, 'collections'), (3234, 'unicode'), (3235, 'script'), (3236, 'javascript-events'), (3237, 'encoding'), (3238, 'button'), (3239, 'printing'), (3240, 'version-control'), (3241, 'join'), (3242, 'xpath'), (3243, 'google-maps-api-3'), (3244, 'permissions'), (3245, 'abstract-algebra'), (3246, 'android-intent'), (3247, 'multidimensional-array'), (3248, 'haskell'), (3249, 'active-directory'), (3250,'nginx'), (3251, 'syntax'), (3252, 'datagridview'), (3253, 'div'), (3254, 'random'), (3255, 'web'), (3256, 'iphone-sdk-4.0'), (3257, 'opengl'), (3258, 'twitter-bootstrap'), (3259, 'canvas'), (3260, 'login'), (3261, 'jdbc'), (3262, 'image-processing'), (3263, 'jpa'), (3264, 'dictionary'), (3265, 'ant'), (3266, 'if-statement'), (3267, 'binding'), (3268, 'twitter'), (3269, 'backbone.js'), (3270, 'jqgrid'), (3271, 'architecture'), (3272, 'audio'), (3273, 'sequences-and-series'), (3274, 'complex-analysis'), (3275, 'geometry'), (3276, 'general-topology'), (3277, 'uitableviewcell'), (3278, 'jquery-selectors'), (3279, 'heroku'), (3280, 'ftp'), (3281, 'extjs'), (3282, 'time'), (3283, 'soap'), (3284, 'combinatorics'), (3285, 'asp.net-mvc-4'), (3286, 'exception-handling'), (3287, 'for-loop'), (3288, 'pdo'), (3289, 'dll'), (3290, 'statistics'), (3291, 'encryption'), (3292, 'sharepoint2010'), (3293, 'sqlite3'), (3294, 'drupal'), (3295, 'url-rewriting'), (3296, 'ado.net'), (3297, 'algebra-precalculus'), (3298, 'emacs'), (3299, 'google-chrome-extension'), (3300, 'group-theory'),
         (3301, 'deployment'), (3302, 'entity-framework-4'), (3303, 'uiwebview'), (3304, 'actionscript'), (3305, 'primefaces'), (3306, 'struts2'), (3307, 'character-encoding'), (3308, 'service'), (3309, 'vbscript'), (3310, 'checkbox'), (3311, 'knockout.js'), (3312, 'matrices'), (3313, 'autocomplete'), (3314, 'datagrid'), (3315, 'video'), (3316, 'graphics'), (3317, 'text'), (3318, 'utf-8'), (3319, 'amazon-ec2'), (3320, 'methods'), (3321, 'configuration'), (3322, 'types'), (3323, 'xhtml'), (3324, 'analysis'), (3325, 'recursion'), (3326, 'android-emulator'), (3327, 'language-agnostic'), (3328, 'macros'), (3329, 'https'), (3330, 'github'), (3331, 'usercontrols'), (3332, 'properties'), (3333, '.net-4.0'), (3334, 'php5'), (3335, 'batch'), (3336, 'upload'), (3337, 'batch-file'), (3338, 'stl'), (3339, 'error-handling'), (3340, 'input'), (3341, 'data'), (3342, 'groovy'), (3343, 'joomla'), (3344, 'xcode4'), (3345, 'foreach'), (3346, 'silverlight-4.0'), (3347, 'django-models'), (3348, 'arraylist'), (3349,'hash'), (3350, 'coding-style'), (3351, 'mfc'), (3352, 'interface'), (3353, 'vector'), (3354, 'opengl-es'), (3355, 'symfony2'), (3356, 'gcc'), (3357, 'boost'), (3358, 'asynchronous'), (3359, 'combobox'), (3360, 'triggers'), (3361, 'fonts'), (3362, 'casting'), (3363, 'routing'), (3364, 'frameworks'), (3365, 'orm'), (3366, 'localization'), (3367, 'coldfusion'), (3368, 'plsql'), (3369, 'website'), (3370, 'cron'), (3371, 'python-3.x'), (3372, 'limit'), (3373, 'python-2.7'), (3374, 'memory-leaks'), (3375, 'proxy'), (3376, 'uiview'), (3377, 'centos'), (3378, 'view'), (3379, 'tcp'), (3380, 'vb6'), (3381, 'sdk'), (3382, 'internet-explorer-8'), (3383, 'calendar'), (3384, 'azure'), (3385, 'windows-8'), (3386, 'terminal'), (3387, 'webview'), (3388, '.net-3.5'), (3389, 'insert'), (3390, 'graph'), (3391, 'activity'), (3392, 'map'), (3393, 'menu'), (3394, 'webserver'), (3395, 'reporting-services'), (3396, 'ruby-on-rails-3.1'), (3397, 'concurrency'), (3398, 'reference'), (3399, 'programming-languages'),(3400, 'sed'), 
         (3401, 'timer'), (3402, 'textbox'), (3403, 'installation'), (3404, 'parameters'), (3405, 'backup'), (3406, 'process'), (3407, 'compiler'), (3408, 'filesystems'), (3409, 'constructor'), (3410, 'model'), (3411, 'import'), (3412, 'air'), (3413, 'junit'), (3414, 'clojure'), (3415, 'io'), (3416, 'static'), (3417, 'internationalization'), (3418, 'ide'), (3419, 'tabs'), (3420, 'numpy'), (3421, 'windows-server-2003'), (3422, 'selenium'), (3423, 'safari'), (3424, 'amazon-web-services'), (3425, 'java-me'), (3426, 'uiviewcontroller'), (3427, 'mercurial'), (3428, 'visual-studio-2012'), (3429, 'matrix'), (3430, 'number-theory'), (3431, 'struct'), (3432, 'hyperlink'), (3433, 'uiscrollview'), (3434, 'svg'), (3435, 'debian'), (3436, 'resources'), (3437, 'attributes'), (3438, 'keyboard'), (3439, 'youtube'), (3440, 'delete'), (3441, 'dojo'), (3442, 'rss'), (3443, 'com'), (3444, 'formatting'), (3445, 'transactions'), (3446, 'eclipse-plugin'), (3447, 'jar'), (3448, 'download'), (3449,'oauth'), (3450, 'bluetooth'), (3451, 'f#'), (3452, 'amazon-s3'), (3453, 'tikz-pgf'), (3454, 'path'), (3455, 'ios6'), (3456, 'charts'), (3457, 'solr'), (3458, 'logic'), (3459, 'navigation'), (3460, 'rspec'), (3461, 'header'), (3462, 'functions'), (3463, 'filter'), (3464, 'c++11'), (3465, 'background'), (3466, 'maven-2'), (3467, 'mac'), (3468, 'colors'), (3469, 'smtp'), (3470, 'build'), (3471, 'tags'), (3472, 'microsoft-excel'), (3473, 'msbuild'), (3474, 'tfs'), (3475, 'windows-vista'), (3476, 'open-source'), (3477, '3d'), (3478, 'virtualbox'), (3479, 'functional-analysis'), (3480, 'module'), (3481, 'compilation'), (3482, 'crash'), (3483, 'automation'), (3484, 'jboss'), (3485, 'documentation'), (3486, 'wireless-networking'), (3487, 'assembly'), (3488, 'ip'), (3489, 'outlook'), (3490, 'usb'), (3491, 'vpn'), (3492, 'windows-server-2008-r2'), (3493, 'hard-drive'), (3494, 'hadoop'), (3495, 'dependency-injection'), (3496, '2010'), (3497, 'virtualization'), (3498, 'boot'), (3499, 'reference-request'),
-        (3500, 'router')]
+        (3500, 'router'), (3501, 'misc')]
 
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://39f58e969b9b.ngrok.io"
+server_url = "http://4bc9ef90be21.ngrok.io"
 
 
 @app.route("/register")
@@ -94,7 +94,8 @@ def askQuestion():
             q = {"q": title}
             response = requests.post(server_url+"/tag", json=q).json()
             tags_list = response['tags']
-            # TO DO - Handle the case of no tags generated
+            if not tags_list:
+                tags_list.append("misc")
             query = ""
             for i in range(len(tags_list)-1):
                 q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
@@ -145,8 +146,7 @@ def askQuestion():
                     users.append(u[0])
 
                 db.close()
-                # TO DO - Rendering of duplicate question in html
-                return render_template('ask.html', session=session,n=len(duplicate_questions), duplicate_questions=duplicate_questions, tags=tags_list, anscnt=anscnt, users=users)
+                return render_template('ask.html',n=len(duplicate_questions), duplicate_questions=duplicate_questions, tags=tags_list, anscnt=anscnt, users=users)
             else:
                 cur = db.cursor()
                 dop = datetime.now()
@@ -170,7 +170,7 @@ def askQuestion():
             db.close()
     else:
         return redirect(url_for('login'))
-    return render_template('ask.html', session=session, duplicate_questions=[],n=0)
+    return render_template('ask.html',n=0)
 
 
 @app.route("/questions/<string:tag>", methods=["GET", "POST"])
