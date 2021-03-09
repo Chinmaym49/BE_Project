@@ -50,6 +50,5 @@ function set() {
         t+="_";
     }
     t+=arr[arr.length-1];
-    document.getElementById("tags").value=t;
     window.location.href="http://localhost:5000/questions/"+t
 }
