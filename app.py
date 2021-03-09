@@ -179,10 +179,18 @@ def questions(tag):
     cur = db.cursor()
     if tag == "all":
         query = "select id,title from Question"
+    elif "_" in tag:
+        tags_list=tag.split("_")
+        query = ""
+        for i in range(len(tags_list)):
+            q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+            if i<len(tags_list)-1:
+                query = query+q+" INTERSECT "
     else:
-        query = "select id from Tag where tag='{}'".format(tag)
-        cur.execute(query)
-        tid = cur.fetchone()[0]
+        for i,j in tags:
+            if j==tag:
+                tid=i
+                break
         query = "select Question.id,Question.title from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
     cur.execute(query)
     ques = cur.fetchall()
@@ -227,6 +235,8 @@ def profile():
 
 @app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
 def tagpage(page_no, flag):
+    global rendered_tags
+    global search_string
     if request.method == "POST":
         search_string = request.form.get("tag")
         if search_string:
