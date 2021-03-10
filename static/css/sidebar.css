@@ -5,7 +5,7 @@
 
 .sidebar {
     z-index: 1130;
-    position: relative;
+    position: fixed;
 }
 
 .sidebar-items__nav {
