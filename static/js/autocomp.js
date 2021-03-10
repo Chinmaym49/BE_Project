@@ -44,11 +44,16 @@ function closeForm() {
 }
 
 function set() {
-    var t="",i=0;
-    for(i=0;i<arr.length-1;i++) {
-        t+=arr[i];
-        t+="_";
+    if(arr.length==0) {
+        var t="all";
     }
-    t+=arr[arr.length-1];
-    window.location.href="http://localhost:5000/questions/"+t
+    else {
+        var t="",i=0;
+        for(i=0;i<arr.length-1;i++) {
+            t+=arr[i];
+            t+="_";
+        }
+        t+=arr[arr.length-1];
+    }    
+    window.location.href="http://localhost:5000/questions/"+t;
 }

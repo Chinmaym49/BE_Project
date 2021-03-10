@@ -2,6 +2,7 @@ from flask import Flask, session, request, redirect, render_template, url_for, f
 import mysql.connector
 import math
 import requests
+from re import sub
 from datetime import timedelta, datetime
 
 app = Flask(__name__)
@@ -170,11 +171,16 @@ def questions(tag):
         query = "select id,title from Question"
     elif "_" in tag:
         tags_list=tag.split("_")
+        tag=sub("_",", ",tag)
         query = ""
+        q=" AND Question.id IN ("
         for i in range(len(tags_list)):
-            q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+            query+="SELECT Question.id from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
             if i<len(tags_list)-1:
-                query = query+q+" INTERSECT "
+                query+=q
+            else:
+                query+=")"*(len(tags_list)-1)
+        query="SELECT Question.id,Question.title from Question WHERE Question.id IN ("+query+")"
     else:
         for i,j in tags:
             if j==tag:
