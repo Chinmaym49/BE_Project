@@ -57,14 +57,14 @@
                 <span class="sidebar-items__text">Tags</span>
               </a>
             </li>
-            <li class="">
-              <a href="{{url_for('searchQuestion')}}">
-                <img class="icon" src="{{ url_for('static',filename='img/search.png') }}"/>
-                <span class="sidebar-items__text">Search a Question</span>
-              </a>
-            </li>
             <li class="sidebar-items__nav--active">
-              <a class="active-text" href="{{url_for('askQuestion')}}">
+                <a class="active-text" href="{{url_for('searchQuestion')}}">
+                  <img class="icon" src="{{ url_for('static',filename='img/search.png') }}"/>
+                  <span class="sidebar-items__text">Search a Question</span>
+                </a>
+              </li>
+            <li class="">
+              <a href="{{url_for('askQuestion')}}">
                 <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>
                 <span class="sidebar-items__text">Ask a Question</span>
               </a>
@@ -82,17 +82,7 @@
       <div class="body-wrapper col-10">
         <!-- navbar -->
         <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
-          <div class="container">
-            <div class="pull-left">
-              <ul class="nav text-center">
-                <li>
-                  <div class="form-group mobi-hide">
-                    <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}"/>
-                    <input class="input-control input-icon-group" type="text" placeholder="Search for a Question..."/>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          <div class="container" style="height:58px">
             <div class="pull-right">
               <ul class="nav">
                 {%if 'id' in session.keys()%}
@@ -113,46 +103,31 @@
         <div class="main-wrapper">
           <div class="container">
             <div class="col-6">
-              {% if n!=0 %}
-                <div class="alert">
-                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                  Question already exists! Check duplicate questions below.
-                </div>
-              {% endif %}
               <div class="panel bg-white">
                 <div class="panel__heading">
-                  <div class="mega-text text-primary" style="margin-top: 8px">Ask a question</div>
+                  <div class="mega-text text-primary" style="margin-top: 8px">Search a question</div>
                 </div>
                 <div class="panel__body m-20">
                   <!-- question -->
                   <form class="form-ask" method="POST">
                     <div class="">
-                      <label>Title</label>
+                      <label>Question</label>
                       <input
                         class="input-control"
                         style="font-size: 15px"
                         type="text"
-                        name="title"
+                        name="question"
                         required="true"
+                        value="{{search_question}}"
                         placeholder="What's your programming question? Be specific..."
                       />
                     </div>
                     <br />
                     <div class="">
-                      <label>Body</label>
-                      <textarea
-                        class="input-control"
-                        style="font-size: 15px"
-                        name="body"
-                        required="true"
-                        placeholder="Please elaborate here..."
-                      ></textarea>
-                    </div>
-                    <div class="">
                       <button
                       class="pull-left btn btn-primary bg-orange p-15 btn-block"
                       >
-                      Post Your Question
+                       Search
                     </button>
                   </div>
                 </form>
@@ -167,17 +142,18 @@
               </div>
             </div>
           </div>
-        {% if n!=0 %} 
+        {% if type_of_request=="POST" %} 
           <div class="container">
             <div class="col-6" style="width: 800px">
               <div class="panel bg-white">
                 <div class="panel__heading">
                   <div class="mega-text text-primary" style="margin-top: 10px; margin-bottom: 10px">
-                      Duplicate Questions 
+                      Search Results 
                   </div>
                       <div class="clearfix bb"></div>
                 </div>
                   <div class="panel__body m-20">
+                    {% if n!=0 %}
                     {% for q in duplicate_questions %}
                     <div class="question-list-item">
                       <div class="col-6">
@@ -218,6 +194,13 @@
                     </div>
                     <div class="clearfix bb"></div>
                     {% endfor %} 
+                    {% else %}
+                        <div class="">
+                            <h3>
+                            No such question found... <a class="text-primary" href="{{url_for('askQuestion')}}">Try asking</a>
+                            </h3>
+                        </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
