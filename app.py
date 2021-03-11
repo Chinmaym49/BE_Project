@@ -24,6 +24,16 @@ search_string = ""
 # Enter Server URL
 server_url = "http://4bc9ef90be21.ngrok.io"
 
+# This will work when debug is off!
+# TO-DO Find good error pages
+@app.errorhandler(500)
+def internal_error(error):
+    return "500 error"
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return "404 error", 404
 
 @app.route("/register")
 def register():
@@ -217,7 +227,39 @@ def questions(tag):
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
     if 'username' in session:
-        return render_template('profile.html')
+        db = mysql.connector.connect(**conf)
+        cur = db.cursor()
+
+        # Query for selecting questions posted by the user.
+        query = "Select Question.id, Question.title, Question.dop from Question where Question.uid = {}".format(
+            session['id'])
+        cur.execute(query)
+        ques = cur.fetchall()
+
+        tags_list = []
+        anscnt = []
+        users = []
+        for id, title, dop in ques:
+            query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(
+                id)
+            cur.execute(query)
+            tgs = cur.fetchall()
+            tags_list.append([t[0] for t in tgs])
+
+            query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
+            cur.execute(query)
+            c = cur.fetchone()
+            anscnt.append(c[0])
+
+            query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(
+                id)
+            cur.execute(query)
+            u = cur.fetchall()
+            users.append(u[0])
+
+        cur.close()
+        db.close()
+        return render_template('profile.html', ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users)
     else:
         return redirect(url_for('login'))
 
