@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ask a Question - Stackoverflow lite</title>
+    <title>Search for a Question - Stackoverflow lite</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}"/>
     <style>
       .alert {
@@ -59,8 +59,8 @@
             </li>
             <li class="sidebar-items__nav--active">
                 <a class="active-text" href="{{url_for('searchQuestion')}}">
-                  <img class="icon" src="{{ url_for('static',filename='img/search.png') }}"/>
-                  <span class="sidebar-items__text">Search a Question</span>
+                  <img class="icon" src="{{ url_for('static',filename='img/loupe.svg') }}"/>
+                  <span class="sidebar-items__text">Search for a Question</span>
                 </a>
               </li>
             <li class="">
@@ -197,7 +197,7 @@
                     {% else %}
                         <div class="">
                             <h3>
-                            No such question found... <a class="text-primary" href="{{url_for('askQuestion')}}">Try asking</a>
+                            No such question found...<a class="text-primary" href="{{url_for('askQuestion')}}">Try asking!</a>
                             </h3>
                         </div>
                     {% endif %}
