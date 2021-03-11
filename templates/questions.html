@@ -114,7 +114,7 @@
                   {% if n==0 %} 
                     No questions available 
                   {% endif %} 
-                  {% for id,title in ques %}
+                  {% for id,title,dop in ques %}
                     <div class="question-list-item">
                       <div class="col-6">
                         <h2>
@@ -126,6 +126,8 @@
                         <h5 class="text-grey">
                           Asked by
                           <span class="text-primary">{{users[loop.index0][1]}}</span>
+                          on
+                          <span class="text-primary">{{dop.strftime("%d-%b-%Y %H:%M")}}</span>
                         </h5>
                       </div>
                       <!-- right icons  -->
