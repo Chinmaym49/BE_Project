@@ -160,103 +160,60 @@
                             <!-- ./ statistics -->
                         </div>
                     </div>
+                    <!--./ Your Questions-->
+                    <div class="panel bg-white">
+                        <div class="panel__heading">
+                            <div class="clearfix bb"></div>
+                            <div class="mega-text text-primary" style="margin-top: 10px; margin-bottom: 10px">
+                                Your Questions
+                            </div>
+                            <div class="clearfix bb"></div>
 
+                        </div>
+                        <div class="panel__body m-20">
+                            {% if n==0 %} No questions available {% else %} {% for
+                          id,title,dop in ques %}
+                            <div class="question-list-item">
+                                <div class="col-6">
+                                    <h2>
+                                        <a class="text-primary" href="#"> {{title}} </a>
+                                    </h2>
+                                    {% for t in tags[loop.index0] %}
+                                    <button class="btn btn-badge btn-link">{{t}}</button>
+                                    {% endfor %}
+                                    <h5 class="text-grey">
+                                        Asked by
+                                        <span class="text-primary">{{users[loop.index0][1]}}</span>
+                                        On
+                                        <span class="text-primary">{{dop.strftime("%d-%b-%Y %H:%M")}}</span>
 
-
-                    <!-- popular questions -->
-                    <div class="col-6">
-                        <div class="panel shadow-primary">
-                            <div class="panel__heading">
-                                <div class="panel__heading__title hatch text-primary">
-                                    Popular Questions
+                                    </h5>
                                 </div>
-                            </div>
-                            <div class="panel__body m-20">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="table__header shadow-primary bg-primary r-6">
-                                            <th>Answers</th>
-                                            <th>Question</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <!-- right icons  -->
+                                <div class="col-6">
+                                    <h4>&nbsp;</h4>
+                                    <table class="text-center stats-box">
                                         <tr>
-                                            <td>
-                                                <div class="table__tag">8</div>
-                                            </td>
-                                            <td>
-                                                How do you implement a Stack and a Queue in JavaScript?
-                                            </td>
-                                            <td>
-                                                1/12/2017
-                                            </td>
+                                            <td>{{anscnt[loop.index0]}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Answers</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="table__tag">7</div>
-                                            </td>
-                                            <td>
-                                                How do you implement a Stack and a Queue in JavaScript?
-                                            </td>
-                                            <td>
-                                                1/2/2018
+                                                <img class="icon"
+                                                    src="{{ url_for('static',filename='img/paper-plane.svg') }}" />
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                    </table>
+                                </div>
+                                <!-- ./right icons -->
                             </div>
+                            <div class="clearfix bb"></div>
+                            {% endfor %} {% endif %}
                         </div>
                     </div>
-                    <!-- ./popular -->
-                    <!-- recent questinos -->
-                    <div class="col-6">
-                        <div class="panel shadow-primary">
-                            <div class="panel__heading">
-                                <div class="panel__heading__title hatch text-primary">
-                                    Recent Questions
-                                </div>
-                            </div>
-                            <div class="panel__body m-20">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="table__header shadow-primary bg-primary r-6">
-                                            <th>Answers</th>
-                                            <th>Question</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="table__tag">7</div>
-                                            </td>
-                                            <td>
-                                                How do you implement a Stack and a Queue in JavaScript?
-                                            </td>
-                                            <td>
-                                                1/2/2018
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table__tag">8</div>
-                                            </td>
-                                            <td>
-                                                How do you implement a Stack and a Queue in JavaScript?
-                                            </td>
-                                            <td>
-                                                1/12/2017
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ./recent -->
-
+                    <!--./ Your Questions-->
                 </div>
             </div>
             <!-- ./list -->
