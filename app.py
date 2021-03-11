@@ -240,8 +240,7 @@ def profile():
         anscnt = []
         users = []
         for id, title, dop in ques:
-            query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(
-                id)
+            query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(id)
             cur.execute(query)
             tgs = cur.fetchall()
             tags_list.append([t[0] for t in tgs])
@@ -251,8 +250,7 @@ def profile():
             c = cur.fetchone()
             anscnt.append(c[0])
 
-            query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(
-                id)
+            query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
             cur.execute(query)
             u = cur.fetchall()
             users.append(u[0])
@@ -308,9 +306,9 @@ def quespage(id):
     cur.execute(query)
     uq = cur.fetchone()
 
-    # query = "select Answer.*, from QuesAns where qid={}".format(id)
-    # cur.execute(query)
-    # ans = cur.fetchall()
+    query = "select Answer.*, from QuesAns where qid={}".format(id)
+    cur.execute(query)
+    ans = cur.fetchall()
 
     cur.close()
     db.close()
