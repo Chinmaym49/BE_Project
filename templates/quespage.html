@@ -12,7 +12,7 @@
           background-color: #4CAF50;
           color: white;
           border-radius: 50px;
-          margin-top: 70px;
+          margin-top: 100px;
         }
         
         .closebtn {
@@ -44,8 +44,8 @@
             <!-- ./logo -->
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
-                    <li class="sidebar-items__nav--active">
-                        <a class="active-text" href="{{url_for('questions',tag='all')}}">
+                    <li class="">
+                        <a href="{{url_for('questions',tag='all')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -115,7 +115,7 @@
                     {% endfor %}
                     <div class="panel bg-white">
                         <div class="panel__heading bb" >
-                            <div class="mega-text text-primary">{{ques[1]}}</div>                   
+                            <div class="mega-text text-primary" style="margin-top: 10px;">{{ques[1]}}</div>                   
                         </div>
                         <div class="panel__body m-35">
                             <!-- question -->
@@ -156,37 +156,33 @@
                             <div class="clearfix bb"></div>
                              <!-- Answers -->
                              <div class="question-list-item">
-                                    <div class="answer">
-                                        <h2 class="text-primary">Answers</h6>
-                                        <div class="clearfix bb"></div>                                        
-                                        <h5 class="text-grey">Modified 1 min ago <span class="text-primary"> P8ul</span></h5>
-                                    </div>
+                                <div class="answer">
+                                    <h2 class="text-primary">Answers</h6>
+                                    <div class="clearfix bb"></div>
+                                </div>
                                 </div>
                                 <div class="clearfix bb"></div>
                                 <!-- answer -->
-                                <div class="answer__item">
-                                    <div class="answer__item_vote pull-left">
-                                        <div class="arrow-up"></div>
-                                        <div class="text-center text-bold">7</div>
-                                        <div class="arrow-down"></div>
-                                    </div>
-                                    <!-- answer body -->
-                                    <div class="answer__item_body pull-left">
-                                        <p>
+                                {% if n==0 %}
+                                    <p>Not answered yet...</p>
+                                {% endif %}
+                                {% for id,uid,answer,votes,doa,handle in ans %}
+                                    <div class="answer__item">                                        
+                                        <h5 class="text-grey">Answered by <span class="text-primary">{{handle}}</span> on <span class="text-primary">{{doa.strftime("%d-%b-%Y %H:%M")}}</span></h5>
+                                        <div class="answer__item_vote pull-left">
+                                            <div class="arrow-up"></div>
+                                            <div class="text-center text-bold">{{votes}}</div>
+                                            <div class="arrow-down"></div>
+                                        </div>
+                                        <!-- answer body -->
+                                        <div class="answer__item_body pull-left">
                                             <p>
-                                                1. Getting the right order while printing the MRO of class D but not geting the constructor
-                                                call of class C.
-                                                Question: why not printing <b>C constructor </b> after <b>A constructor</b>
-                                                in the given code below ?
+                                                {{answer}}
                                             </p>
-                                            <pre class="language-markup">
-                                                stack.push(2);       // stack is now [2]
-                                                stack.push(5);
-                                            </pre>
-                                        </p>
+                                        </div>
+                                        <!-- ./body -->
                                     </div>
-                                    <!-- ./body -->
-                                </div>                               
+                                {% endfor %}                           
                                 <!-- ./answer -->
                                 <div class="clearfix bb"></div>
                                 <!-- post answer -->

@@ -312,7 +312,7 @@ def quespage(id):
 
     cur.close()
     db.close()
-    return render_template("quespage.html",tgs=tgs,c=c,uq=uq,ques=[id,title,body,dop])
+    return render_template("quespage.html",tgs=tgs,c=c,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans))
 
 @app.route("/searchQuestion", methods=["GET", "POST"])
 def searchQuestion():
