@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Question - Stackoverflow lite</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">  
+    <style>
+        .alert {
+          padding: 15px;
+          background-color: #4CAF50;
+          color: white;
+          border-radius: 50px;
+          margin-top: 70px;
+        }
+        
+        .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+        
+        .closebtn:hover {
+          color: black;
+        }
+    </style>  
 </head>
 <body>
     <div class="main">
@@ -76,7 +100,13 @@
             <!-- list -->
             <div class="clearfix"></div>
             <div class="main-wrapper">
-               <div class="container">
+                <div class="container">
+                    {% for msg in get_flashed_messages() %}
+                        <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                            {{msg}}
+                        </div>
+                    {% endfor %}
                     <div class="panel bg-white">
                         <div class="panel__heading bb" >
                             <div class="mega-text text-primary">{{ques[1]}}</div>                   

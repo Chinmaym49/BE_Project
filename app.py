@@ -165,7 +165,8 @@ def askQuestion():
                 for id in tag_id:
                     cur.execute('INSERT INTO QuesTag(qid,tid) values(%s,%s)', (qid, id))
                     db.commit()
-                # TO DO - Direct to the uploaded question page
+                flash("Question posted successfully!")
+                return redirect(url_for("quespage",id=qid))
             db.close()
             cur.close()
     else:
@@ -178,7 +179,7 @@ def questions(tag):
     db = mysql.connector.connect(**conf)
     cur = db.cursor()
     if tag == "all":
-        query = "select id,title from Question"
+        query = "select id,title,dop from Question"
     elif "_" in tag:
         tags_list=tag.split("_")
         tag=sub("_",", ",tag)
@@ -190,20 +191,20 @@ def questions(tag):
                 query+=q
             else:
                 query+=")"*(len(tags_list)-1)
-        query="SELECT Question.id,Question.title from Question WHERE Question.id IN ("+query+")"
+        query="SELECT Question.id,Question.title,Question.dop from Question WHERE Question.id IN ("+query+")"
     else:
         for i,j in tags:
             if j==tag:
                 tid=i
                 break
-        query = "select Question.id,Question.title from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
+        query = "select Question.id,Question.title,Question.dop from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
     cur.execute(query)
     ques = cur.fetchall()
 
     tags_list = []
     anscnt = []
     users = []
-    for id, title in ques:
+    for id, title, dop in ques:
         query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(id)
         cur.execute(query)
         tgs = cur.fetchall()
@@ -231,8 +232,7 @@ def profile():
         cur = db.cursor()
 
         # Query for selecting questions posted by the user.
-        query = "Select Question.id, Question.title, Question.dop from Question where Question.uid = {}".format(
-            session['id'])
+        query = "Select Question.id, Question.title, Question.dop from Question where Question.uid = {}".format(session['id'])
         cur.execute(query)
         ques = cur.fetchall()
 
@@ -306,7 +306,7 @@ def quespage(id):
     cur.execute(query)
     uq = cur.fetchone()
 
-    query = "select Answer.*, from QuesAns where qid={}".format(id)
+    query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id".format(id)
     cur.execute(query)
     ans = cur.fetchall()
 
