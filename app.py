@@ -217,7 +217,7 @@ def questions(tag):
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
     if 'username' in session:
-        return render_template('profile.html', session=session)
+        return render_template('profile.html')
     else:
         return redirect(url_for('login'))
 
@@ -244,6 +244,35 @@ def tagpage(page_no, flag):
     end_page = math.ceil(len(rendered_tags)/16)
     return render_template("tags.html", tags=rendered_tags, start=start, end=end, page_no=page_no, end_page=end_page, search_string=search_string, n=len(rendered_tags))
 
+@app.route("/ques/<int:id>")
+def quespage(id):
+    db = mysql.connector.connect(**conf)
+    cur = db.cursor()
+    query = "select id,title,body,dop from Question where id={}".format(id)
+    cur.execute(query)
+    ques = cur.fetchone()
+    id,title,body,dop=ques[0],ques[1],ques[2],ques[3].strftime("%d-%b-%Y %H:%M")
+
+    query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(id)
+    cur.execute(query)
+    tgs = cur.fetchall()
+    tgs=[t[0] for t in tgs]
+
+    query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
+    cur.execute(query)
+    c = cur.fetchone()[0]
+
+    query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
+    cur.execute(query)
+    uq = cur.fetchone()
+
+    # query = "select Answer.*, from QuesAns where qid={}".format(id)
+    # cur.execute(query)
+    # ans = cur.fetchall()
+
+    cur.close()
+    db.close()
+    return render_template("quespage.html",tgs=tgs,c=c,uq=uq,ques=[id,title,body,dop])
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

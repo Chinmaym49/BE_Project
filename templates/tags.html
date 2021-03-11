@@ -52,9 +52,9 @@
         <div class="body-wrapper col-10 ">
             <!-- navbar -->
             <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
-                    <div class="container">
-                        <div class="pull-left">
-                            <form method="POST" action="{{url_for('tagpage',page_no=1,flag=False)}}">
+                <div class="container">
+                    <div class="pull-left">
+                        <form method="POST" action="{{url_for('tagpage',page_no=1,flag=False)}}">
                             <ul class="nav text-center">
                                 <li>
                                     <div class="form-group mobi-hide">
@@ -62,41 +62,41 @@
                                     </div>
                                 </li>
                                 <li>
-                                <button class="round bg-orange" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border: none; height: 30px; width: 30px; padding: 0px;"><i class="material-icons" style="padding-top: 3px;">search</i></button>    
+                                    <button class="round bg-orange" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border: none; height: 30px; width: 30px; padding: 0px;"><i class="material-icons" style="padding-top: 3px;">search</i></button>    
                                 </li>
                             </ul>
                         </form>
-                        </div>
-                        <div class="pull-right">
-                            <ul class="nav">
-                                {%if 'id' not in session.keys()%}
-                                <li>
-                                    <a
-                                    href="{{url_for('login')}}"
-                                    class="text-white floating btn btn-round mt--5 bg-orange"
-                                    >
-                                    Login
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                    href="{{url_for('register')}}"
-                                    class="text-white floating btn btn-round mt--5 bg-orange"
-                                    >
-                                    Sign Up
-                                    </a>
-                                </li>
-                                {%endif%} {%if 'id' in session.keys()%}
-                                <li>
-                                    <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
-                                        Log out
-                                    </a>                                
-                                </li>
-                                {%endif%}
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <ul class="nav">
+                            {%if 'id' not in session.keys()%}
+                            <li>
+                                <a
+                                href="{{url_for('login')}}"
+                                class="text-white floating btn btn-round mt--5 bg-orange"
+                                >
+                                Login
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                href="{{url_for('register')}}"
+                                class="text-white floating btn btn-round mt--5 bg-orange"
+                                >
+                                Sign Up
+                                </a>
+                            </li>
+                            {%endif%} {%if 'id' in session.keys()%}
+                            <li>
+                                <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
+                                    Log out
+                                </a>                                
+                            </li>
+                            {%endif%}
+                        </ul>
                     </div>
                 </div>
+            </div>
             <!-- ./navbar -->
             <!-- list -->
             <div class="clearfix"></div>
