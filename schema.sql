@@ -28,6 +28,7 @@ CREATE TABLE `QuesTag` (
 
 CREATE TABLE `Answer` (
 	`id` INT NOT NULL AUTO_INCREMENT,
+	`uid` INT NOT NULL,
 	`answer` TEXT NOT NULL,
 	`votes` INT NOT NULL,
 	`doa` DATETIME NOT NULL,
@@ -46,6 +47,8 @@ CREATE TABLE `AnsVote` (
 );
 
 ALTER TABLE `Question` ADD CONSTRAINT `Question_fk0` FOREIGN KEY (`uid`) REFERENCES `User`(`id`);
+
+ALTER TABLE `Answer` ADD CONSTRAINT `Answer_fk0` FOREIGN KEY (`uid`) REFERENCES `User`(`id`);
 
 ALTER TABLE `QuesTag` ADD CONSTRAINT `QuesTag_fk0` FOREIGN KEY (`qid`) REFERENCES `Question`(`id`);
 
