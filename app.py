@@ -22,7 +22,7 @@ tags = [(3001, 'c#'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (3005
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://4bc9ef90be21.ngrok.io"
+server_url = "http://36d64ba08d8b.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
@@ -313,6 +313,63 @@ def quespage(id):
     cur.close()
     db.close()
     return render_template("quespage.html",tgs=tgs,c=c,uq=uq,ques=[id,title,body,dop])
+
+@app.route("/searchQuestion", methods=["GET", "POST"])
+def searchQuestion():
+    if request.method == "POST":
+        question_query = request.form.get("question")
+        q = {"q": question_query}
+        response = requests.post(server_url+"/tag", json=q).json()
+        tags_list = response['tags']
+        if not tags_list:
+            tags_list.append("misc")
+        query = ""
+        for i in range(len(tags_list)-1):
+            q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+            query = query+q+" UNION "
+        q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[-1])
+        query = query+q
+
+        db = mysql.connector.connect(**conf)
+
+        cur = db.cursor()
+        cur.execute(query)
+        questions = cur.fetchall()
+
+        duplicate_questions = []
+        for question in questions:
+            qs = {"q1": question_query, "q2": question[1]}
+            response = requests.post(server_url+"/dup", json=qs).json()
+            dup_score = response['prediction']
+            print(dup_score)
+            if dup_score >= 0.5:
+                duplicate_questions.append(question)
+        if duplicate_questions:
+            print(duplicate_questions)
+            tags_list = []
+            anscnt = []
+            users = []
+            for duplicate_question in duplicate_questions:
+                query = "select Tag.tag from Question,Tag,QuesTag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Question.id={}".format(duplicate_question[0])
+                cur.execute(query)
+                tgs = cur.fetchall()
+                tags_list.append([t[0] for t in tgs])
+
+                query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(duplicate_question[0])
+                cur.execute(query)
+                c = cur.fetchone()
+                anscnt.append(c[0])
+
+                query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(duplicate_question[0])
+                cur.execute(query)
+                u = cur.fetchall()
+                users.append(u[0])
+
+            return render_template('searchQuestion.html',n=len(duplicate_questions), duplicate_questions=duplicate_questions, tags=tags_list, anscnt=anscnt, users=users,type_of_request="POST",search_question=question_query)
+        else:
+            return render_template('searchQuestion.html',n=0,type_of_request="POST",search_question=question_query)
+    else:
+        return render_template('searchQuestion.html',n=0,type_of_request="GET",search_question="")
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

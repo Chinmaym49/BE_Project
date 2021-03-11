@@ -35,6 +35,12 @@
                         </a>                        
                     </li>
                     <li class="">
+                        <a href="{{url_for('searchQuestion')}}">
+                          <img class="icon" src="{{ url_for('static',filename='img/search.png') }}"/>
+                          <span class="sidebar-items__text">Search a Question</span>
+                        </a>
+                    </li>
+                    <li class="">
                         <a href="{{url_for('askQuestion')}}">
                             <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
                             <span class="sidebar-items__text">Ask a Question</span>
