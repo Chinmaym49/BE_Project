@@ -85,12 +85,23 @@
           <div class="container" style="height:58px">
             <div class="pull-right">
               <ul class="nav">
-                {%if 'id' in session.keys()%}
-                <li>
-                  <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
-                    Log out
-                  </a>
-                </li>
+                {%if 'id' not in session.keys()%}
+                  <li>
+                    <a href="{{url_for('login')}}" class="text-white floating btn btn-round mt--5 bg-orange">
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{url_for('register')}}" class="text-white floating btn btn-round mt--5 bg-orange">>
+                      Sign Up
+                    </a>
+                  </li>
+                {%else%}
+                  <li>
+                    <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
+                      Log out
+                    </a>
+                  </li>
                 {%endif%}
               </ul>
             </div>
@@ -124,9 +135,7 @@
                     </div>
                     <br />
                     <div class="">
-                      <button
-                      class="pull-left btn btn-primary bg-orange p-15 btn-block"
-                      >
+                      <button class="pull-left btn btn-primary bg-orange p-15 btn-block">
                        Search
                     </button>
                   </div>

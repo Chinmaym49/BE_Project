@@ -81,27 +81,16 @@
       <!-- ./sidebar -->
       <div class="body-wrapper col-10">
         <!-- navbar -->
-        <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+        <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top" style="height: 58px;">
           <div class="container">
-            <div class="pull-left">
-              <ul class="nav text-center">
-                <li>
-                  <div class="form-group mobi-hide">
-                    <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}"/>
-                    <input class="input-control input-icon-group" type="text" placeholder="Search for a Question..."/>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <div class="pull-left"></div>
             <div class="pull-right">
               <ul class="nav">
-                {%if 'id' in session.keys()%}
                 <li>
                   <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
                     Log out
                   </a>
                 </li>
-                {%endif%}
               </ul>
             </div>
           </div>
@@ -149,9 +138,7 @@
                       ></textarea>
                     </div>
                     <div class="">
-                      <button
-                      class="pull-left btn btn-primary bg-orange p-15 btn-block"
-                      >
+                      <button class="pull-left btn btn-primary bg-orange p-15 btn-block">
                       Post Your Question
                     </button>
                   </div>
