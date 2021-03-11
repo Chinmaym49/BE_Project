@@ -22,7 +22,7 @@ tags = [(3001, 'c#'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (3005
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://36d64ba08d8b.ngrok.io"
+server_url = "http://d0500832e17b.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
@@ -109,9 +109,9 @@ def askQuestion():
                 tags_list.append("misc")
             query = ""
             for i in range(len(tags_list)-1):
-                q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+                q = "SELECT Question.id, Question.title, Question.dop from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
                 query = query+q+" UNION "
-            q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[-1])
+            q = "SELECT Question.id, Question.title, Question.dop from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[-1])
             query = query+q
 
             db = mysql.connector.connect(**conf)
@@ -325,9 +325,9 @@ def searchQuestion():
             tags_list.append("misc")
         query = ""
         for i in range(len(tags_list)-1):
-            q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+            q = "SELECT Question.id, Question.title, Question.dop from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
             query = query+q+" UNION "
-        q = "SELECT Question.id,Question.title from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[-1])
+        q = "SELECT Question.id, Question.title, Question.dop from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[-1])
         query = query+q
 
         db = mysql.connector.connect(**conf)
