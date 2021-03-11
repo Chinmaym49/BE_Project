@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profile - Stackoverflow lite</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <!-- logo -->
             <div>
                 <a href="{{url_for('home')}}">
-                    <img class="sidebar__logo-backend" src="../static/img/logo.png" alt="logo">
+                    <img class="sidebar__logo-backend" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo">
                 </a>
             </div>
             <!-- ./logo -->
@@ -24,34 +24,25 @@
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
                         <a href="{{url_for('questions',tag='all')}}">
-                            <img class="icon" src="../static/img/question-mark.svg" />
+                            <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
-                        </a>
+                        </a>                        
                     </li>
                     <li class="">
-                        <a>
-                            <a href="{{url_for('tagpage',page_no=1,flag=True)}}">
-                                <img class="icon" src="../static/img/price-tag.svg" />
-                                <span class="sidebar-items__text">Tags</span>
-                            </a>
-
-                        </a>
+                        <a href="{{url_for('tagpage',page_no=1,flag=True)}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}" />
+                            <span class="sidebar-items__text">Tags</span>
+                        </a>                        
                     </li>
-                    <li>
+                    <li class="">
                         <a href="{{url_for('askQuestion')}}">
-                            <img class="icon" src="../static/img/thumbs-up.svg" />
-                            <span class="sidebar-items__text">Ask Question</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <img class="icon" src="../static/img/megaphone.svg" />
-                            <span class="sidebar-items__text">Badges</span>
+                            <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>                            
+                            <span class="sidebar-items__text">Ask a Question</span>
                         </a>
                     </li>
                     <li class="sidebar-items__nav--active">
-                        <a class="active-text">
-                            <img class="icon" src="../static/img/user.svg" />
+                        <a class="active-text" href="{{url_for('profile')}}">
+                            <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}" />                            
                             <span class="sidebar-items__text">Profile</span>
                         </a>
                     </li>
@@ -61,22 +52,9 @@
         <!-- ./sidebar -->
         <div class="body-wrapper col-10 ">
             <!-- navbar -->
-            <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top">
+            <div class="navbar bg-white navbar-primary p-0 navbar-fixed-top" style="height: 58px;">
                 <div class="container">
-                    <div class="pull-left">
-                        <ul class="nav text-center">
-                            <li>
-                                <img class="icon" src="../static/img/list.svg" />
-                            </li>
-                            <li>
-                                <div class="form-group mobi-hide">
-                                    <img class="icon input-icon" src="../static/img/loupe.svg" />
-                                    <input class="input-control stretchRight input-icon-group" type='text'
-                                        placeholder="Search..">
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="pull-left"></div>
                     <div class="pull-right">
                         <ul class="nav">
                             <li>
@@ -99,7 +77,7 @@
                     <div class="col-20">
                         <div class="panel shadow-primary">
                             <div class="panel__heading">
-                                <div class="panel__heading__title hatch text-primary">
+                                <div class="panel__heading__title text-primary">
                                     Profile Information
                                 </div>
                             </div>
@@ -121,10 +99,10 @@
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-dark-blue">
                                     <div class="statistics__card__title pull-left">
-                                        All Questions
+                                        <b>#Questions</b>
                                     </div>
-                                    <img class="statistics__card__icon pull-right hatch"
-                                        src="../static/img/question-mark.svg" />
+                                    <img class="statistics__card__icon pull-right"
+                                        src="{{ url_for('static',filename='img/question-mark.svg') }}" />
                                     <div class=""></div>
                                     <div class="statistics__card__value">69</div>
                                 </div>
@@ -135,10 +113,10 @@
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-white">
                                     <div class="statistics__card__title pull-left">
-                                        All Answers
+                                        <b>#Answers</b>
                                     </div>
-                                    <img class="statistics__card__icon pull-right hatch"
-                                        src="../static/img/checklist-on-a-paper-with-a-pencil.svg" />
+                                    <img class="statistics__card__icon pull-right"
+                                        src="{{ url_for('static',filename='img/checklist-on-a-paper-with-a-pencil.svg') }}" />
                                     <div class=""></div>
                                     <div class="statistics__card__value">69</div>
                                 </div>
@@ -149,10 +127,10 @@
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-light-blue">
                                     <div class="statistics__card__title pull-left">
-                                        All Votes
+                                        <b>#Votes</b>
                                     </div>
-                                    <img class="hatch statistics__card__icon pull-right"
-                                        src="../static/img/thumbs-up.svg" />
+                                    <img class="statistics__card__icon pull-right"
+                                        src="{{ url_for('static',filename='img/thumbs-up.svg') }}" />
                                     <div class=""></div>
                                     <div class="statistics__card__value">109</div>
                                 </div>
@@ -163,7 +141,7 @@
                     <!--./ Your Questions-->
                     <div class="panel bg-white">
                         <div class="panel__heading">
-                            <div class="clearfix bb"></div>
+                            <div class="clearfix bb" style="border-bottom-color: transparent;"></div>
                             <div class="mega-text text-primary" style="margin-top: 10px; margin-bottom: 10px">
                                 Your Questions
                             </div>
@@ -171,46 +149,47 @@
 
                         </div>
                         <div class="panel__body m-20">
-                            {% if n==0 %} No questions available {% else %} {% for
-                          id,title,dop in ques %}
-                            <div class="question-list-item">
-                                <div class="col-6">
-                                    <h2>
-                                        <a class="text-primary" href="#"> {{title}} </a>
-                                    </h2>
-                                    {% for t in tags[loop.index0] %}
-                                    <button class="btn btn-badge btn-link">{{t}}</button>
-                                    {% endfor %}
-                                    <h5 class="text-grey">
-                                        Asked by
-                                        <span class="text-primary">{{users[loop.index0][1]}}</span>
-                                        On
-                                        <span class="text-primary">{{dop.strftime("%d-%b-%Y %H:%M")}}</span>
-
-                                    </h5>
+                            {% if n==0 %} 
+                                You did not post questions...<a href="{{url_for('askQuestion')}}">Try posting one!</a>
+                            {% endif %} 
+                            {% for id,title,dop in ques %}
+                                <div class="question-list-item">
+                                    <div class="col-6">
+                                        <h2>
+                                            <a class="text-primary" href="#"> {{title}} </a>
+                                        </h2>
+                                        {% for t in tags[loop.index0] %}
+                                        <button class="btn btn-badge btn-link">{{t}}</button>
+                                        {% endfor %}
+                                        <h5 class="text-grey">
+                                            Asked by
+                                            <span class="text-primary">{{users[loop.index0][1]}}</span>
+                                            on
+                                            <span class="text-primary">{{dop.strftime("%d-%b-%Y %H:%M")}}</span>
+                                        </h5>
+                                    </div>
+                                    <!-- right icons  -->
+                                    <div class="col-6">
+                                        <h4>&nbsp;</h4>
+                                        <table class="text-center stats-box">
+                                            <tr>
+                                                <td>{{anscnt[loop.index0]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Answers</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img class="icon"
+                                                        src="{{ url_for('static',filename='img/paper-plane.svg') }}" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <!-- ./right icons -->
                                 </div>
-                                <!-- right icons  -->
-                                <div class="col-6">
-                                    <h4>&nbsp;</h4>
-                                    <table class="text-center stats-box">
-                                        <tr>
-                                            <td>{{anscnt[loop.index0]}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Answers</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img class="icon"
-                                                    src="{{ url_for('static',filename='img/paper-plane.svg') }}" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <!-- ./right icons -->
-                            </div>
-                            <div class="clearfix bb"></div>
-                            {% endfor %} {% endif %}
+                                <div class="clearfix bb"></div>
+                            {% endfor %}
                         </div>
                     </div>
                     <!--./ Your Questions-->
@@ -221,7 +200,4 @@
 
     </div>
 </body>
-
-<script src="../static/js/main.js"></script>
-
 </html>

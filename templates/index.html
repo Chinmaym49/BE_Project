@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Homepage - Stackoverflow lite</title>
-  <link rel="stylesheet" href="../static/css/styles.css" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}" />
   <style>
     .alert {
       padding: 15px;
@@ -41,7 +41,7 @@
           <ul class="nav text-center">
             <li>
               <a href="">
-                <img class="logo" src="../static/img/logo.png" alt="logo" />
+                <img class="logo" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo" />
               </a>
             </li>
           </ul>
@@ -59,12 +59,12 @@
             </li>
             {%if 'id' not in session.keys()%}
             <li>
-              <a href="{{url_for('login')}}" class="text-white floating btn btn-round mt--5 bg-orange">
+              <a href="{{url_for('login')}}" class="text-white btn btn-round mt--5 bg-orange">
                 Login
               </a>
             </li>
             <li>
-              <a href="{{url_for('register')}}" class="text-white floating btn btn-round mt--5 bg-orange">
+              <a href="{{url_for('register')}}" class="text-white btn btn-round mt--5 bg-orange">
                 Sign Up
               </a>
             </li>

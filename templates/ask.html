@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ask a Question - Stackoverflow lite</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static',filename='css/styles.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}"/>
     <style>
       .alert {
         padding: 15px;
@@ -42,11 +39,7 @@
         <!-- logo -->
         <div>
           <a href="{{url_for('home')}}">
-            <img
-              class="sidebar__logo-backend"
-              src="{{ url_for('static',filename='img/logo.png') }}"
-              alt="logo"
-            />
+            <img class="sidebar__logo-backend" src="{{ url_for('static',filename='img/logo.png') }}" alt="logo"/>
           </a>
         </div>
         <!-- ./logo -->
@@ -54,37 +47,25 @@
           <ul class="sidebar-items__nav nav column">
             <li class="">
               <a href="{{url_for('questions',tag='all')}}">
-                <img
-                  class="icon"
-                  src="{{ url_for('static',filename='img/question-mark.svg') }}"
-                />
+                <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                 <span class="sidebar-items__text">Questions</span>
               </a>
             </li>
             <li class="">
               <a href="{{url_for('tagpage',page_no=1,flag=True)}}">
-                <img
-                  class="icon"
-                  src="{{ url_for('static',filename='img/price-tag.svg') }}"
-                />
+                <img class="icon" src="{{ url_for('static',filename='img/price-tag.svg') }}"/>
                 <span class="sidebar-items__text">Tags</span>
               </a>
             </li>
             <li class="sidebar-items__nav--active">
               <a class="active-text" href="{{url_for('askQuestion')}}">
-                <img
-                  class="icon"
-                  src="{{ url_for('static',filename='img/thumbs-up.svg') }}"
-                />
+                <img class="icon" src="{{ url_for('static',filename='img/thumbs-up.svg') }}"/>
                 <span class="sidebar-items__text">Ask a Question</span>
               </a>
             </li>
             <li>
               <a href="{{url_for('profile')}}">
-                <img
-                  class="icon"
-                  src="{{ url_for('static',filename='img/user.svg') }}"
-                />
+                <img class="icon" src="{{ url_for('static',filename='img/user.svg') }}"/>
                 <span class="sidebar-items__text">Profile</span>
               </a>
             </li>
@@ -100,15 +81,8 @@
               <ul class="nav text-center">
                 <li>
                   <div class="form-group mobi-hide">
-                    <img
-                      class="icon input-icon"
-                      src="{{ url_for('static',filename='img/loupe.svg') }}"
-                    />
-                    <input
-                      class="input-control input-icon-group"
-                      type="text"
-                      placeholder="Search for a Question..."
-                    />
+                    <img class="icon input-icon" src="{{ url_for('static',filename='img/loupe.svg') }}"/>
+                    <input class="input-control input-icon-group" type="text" placeholder="Search for a Question..."/>
                   </div>
                 </li>
               </ul>
@@ -117,10 +91,7 @@
               <ul class="nav">
                 {%if 'id' in session.keys()%}
                 <li>
-                  <a
-                    href="{{url_for('logout')}}"
-                    class="btn btn-round mt--5 bg-orange"
-                  >
+                  <a href="{{url_for('logout')}}" class="btn btn-round mt--5 bg-orange">
                     Log out
                   </a>
                 </li>
@@ -141,7 +112,7 @@
                   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                   Question already exists! Check duplicate questions below.
                 </div>
-                  {% endif %}
+              {% endif %}
               <div class="panel bg-white">
                 <div class="panel__heading">
                   <div class="mega-text text-primary" style="margin-top: 8px">Ask a question</div>
@@ -186,10 +157,7 @@
             <div class="col-6">
               <div class="panel">
                 <span class="mega-text">&nbsp;</span>
-                <img
-                  src="{{ url_for('static',filename='img/unnamed.png') }}"
-                  class="card-image"
-                />
+                <img src="{{ url_for('static',filename='img/unnamed.png') }}" class="card-image"/>
               </div>
             </div>
           </div>
@@ -254,6 +222,4 @@
       </div>
     </div>
   </body>
-
-  <!-- <script src="./js/main.js"></script> -->
 </html>
