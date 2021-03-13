@@ -22,7 +22,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="{{url_for('questions',tag='all')}}">
+                        <a href="{{url_for('questions',tag='all',page_no=1)}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
@@ -126,6 +126,7 @@
                                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
                                         background-color: #f1f1f1;
                                         min-width: 120px;
+                                        cursor:pointer
                                     }
                                     td:hover {
                                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -140,7 +141,7 @@
                                         {% endif %}
                                         <tr>
                                             {% for j in range(i,minval) %}
-                                                <td onclick="location.href='{{url_for('questions',tag=tags[j][1])}}'">
+                                                <td onclick="location.href='{{url_for('questions',tag=tags[j][1],page_no=1)}}'">
                                                     <h3>
                                                         {{tags[j][1]}}
                                                     </h3>
