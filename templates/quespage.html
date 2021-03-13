@@ -124,7 +124,7 @@
                                     <pre style="font-family: 'Roboto', 'Helvetica', 'Arial';">{{ques[2]}}</pre>
                                     <h5 class="text-grey">Asked on <span class="text-primary">{{ques[3]}}</span> by <span class="text-primary">{{uq[1]}}</span></h5>
                                     {% for t in tgs %}
-                                        <button class="btn btn-badge btn-link">
+                                        <button class="btn btn-badge btn-link" onclick="location.href='{{url_for('questions',tag=t,page_no=1)}}'">
                                             {{t}}
                                         </button>
                                     {% endfor %}
@@ -178,9 +178,9 @@
                                         </div>
                                         <!-- ./body -->
                                     </div>
+                                    <div class="clearfix bb"></div>
                                 {% endfor %}                           
                                 <!-- ./answer -->
-                                <div class="clearfix bb"></div>
                                 <!-- post answer -->
                                 <form action="{{url_for('quespage',id=ques[0])}}" method="POST">
                                     {% if "id" in session %}
