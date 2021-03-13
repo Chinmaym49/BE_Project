@@ -179,33 +179,10 @@ def questions(tag,page_no):
     db = mysql.connector.connect(**conf)
     cur = db.cursor()
 
-    if tag == "all":
-        query = "select count(*) from Question"
-    elif "_" in tag:
-        tags_list=tag.split("_")
-        query = ""
-        q=" AND Question.id IN ("
-        for i in range(len(tags_list)):
-            query+="SELECT Question.id from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
-            if i<len(tags_list)-1:
-                query+=q
-            else:
-                query+=")"*(len(tags_list)-1)
-        query="SELECT count(*) from Question WHERE Question.id IN ("+query+")"
-    else:
-        for i,j in tags:
-            if j==tag:
-                tid=i
-                break
-        query = "select count(*) from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
-    cur.execute(query)
-    total = cur.fetchone()[0]
-
     start = (page_no-1)*10
-    end_page = max(math.ceil(total/10),1)
 
     if tag == "all":
-        query = "select id,title,dop from Question limit {},10".format(start)
+        query = "select id,title,dop from Question limit {},11".format(start)
     elif "_" in tag:
         tags_list=tag.split("_")
         tag=sub("_",", ",tag)
@@ -217,15 +194,20 @@ def questions(tag,page_no):
                 query+=q
             else:
                 query+=")"*(len(tags_list)-1)
-        query="SELECT Question.id,Question.title,Question.dop from Question WHERE Question.id IN ("+query+") limit {},10".format(start)
+        query="SELECT Question.id,Question.title,Question.dop from Question WHERE Question.id IN ("+query+") limit {},11".format(start)
     else:
         for i,j in tags:
             if j==tag:
                 tid=i
                 break
-        query = "select Question.id,Question.title,Question.dop from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={} limit {},10".format(tid,start)
+        query = "select Question.id,Question.title,Question.dop from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={} limit {},11".format(tid,start)
     cur.execute(query)
     ques = cur.fetchall()
+
+    if len(ques)==11:
+        end_page=False
+    else:
+        end_page=True
 
     tags_list = []
     anscnt = []
