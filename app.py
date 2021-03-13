@@ -323,7 +323,7 @@ def quespage(id):
     cur.execute(query)
     uq = cur.fetchone()
 
-    query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id".format(id)
+    query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id and QuesAns.aid=Answer.id".format(id)
     cur.execute(query)
     ans = cur.fetchall()
     f=0
