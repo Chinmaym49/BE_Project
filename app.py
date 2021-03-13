@@ -205,6 +205,7 @@ def questions(tag,page_no):
     ques = cur.fetchall()
 
     if len(ques)==11:
+        ques.pop()
         end_page=False
     else:
         end_page=True
