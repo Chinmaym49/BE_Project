@@ -23,7 +23,7 @@
             <div class="sidebar-items">
                 <ul class="sidebar-items__nav nav column">
                     <li class="">
-                        <a href="{{url_for('questions',tag='all')}}">
+                        <a href="{{url_for('questions',tag='all',page_no=1)}}">
                             <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                             <span class="sidebar-items__text">Questions</span>
                         </a>                        
