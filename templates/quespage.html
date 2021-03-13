@@ -117,13 +117,11 @@
                         <div class="panel__heading bb" >
                             <div class="mega-text text-primary" style="margin-top: 10px;">{{ques[1]}}</div>                   
                         </div>
-                        <div class="panel__body m-35">
+                        <div class="panel__body m-35" style="margin-top: 10px;">
                             <!-- question -->
                             <div class="question-list-item">
                                 <div class="col-10">
-                                    <p>
-                                        {{ques[2]}}
-                                    </p>
+                                    <pre style="font-family: 'Roboto', 'Helvetica', 'Arial';">{{ques[2]}}</pre>
                                     <h5 class="text-grey">Asked on <span class="text-primary">{{ques[3]}}</span> by <span class="text-primary">{{uq[1]}}</span></h5>
                                     {% for t in tgs %}
                                         <button class="btn btn-badge btn-link">
@@ -176,9 +174,7 @@
                                         </div>
                                         <!-- answer body -->
                                         <div class="answer__item_body pull-left">
-                                            <p>
-                                                {{answer}}
-                                            </p>
+                                            <pre style="font-family: 'Roboto', 'Helvetica', 'Arial';">{{answer}}</pre>
                                         </div>
                                         <!-- ./body -->
                                     </div>
@@ -186,9 +182,18 @@
                                 <!-- ./answer -->
                                 <div class="clearfix bb"></div>
                                 <!-- post answer -->
-                                <div class="mega-text text-primary">Your Answer</div>
-                                <textarea class="comment-box" placeholder="Answer here..."></textarea>
-                                <button class="btn bg-primary btn-round pull-right">Add answer</button>
+                                <form action="{{url_for('quespage',id=ques[0])}}" method="POST">
+                                    {% if "id" in session %}
+                                        {% if f==0 %}
+                                            <div class="mega-text text-primary">Your Answer</div>
+                                            <textarea name="ans" class="comment-box" placeholder="Answer here..." rows="7" required></textarea>
+                                            <button class="pull-right btn btn-primary bg-primary p-15 btn-block" style="width: 90px;" >post</button>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="mega-text text-primary">Your Answer</div>
+                                        <textarea class="comment-box" placeholder="Login to post your answer!" rows="7" disabled></textarea>
+                                    {% endif %}
+                                </form>
                                 <!-- ./post answer -->
                         </div>
                     </div>
