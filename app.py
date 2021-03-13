@@ -22,7 +22,7 @@ tags = [(3001, 'c-hash'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://d0500832e17b.ngrok.io"
+server_url = "http://51563ecf8969.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
@@ -174,12 +174,38 @@ def askQuestion():
     return render_template('ask.html',n=0)
 
 
-@app.route("/questions/<string:tag>", methods=["GET", "POST"])
-def questions(tag):
+@app.route("/questions/<string:tag>/<int:page_no>", methods=["GET", "POST"])
+def questions(tag,page_no):
     db = mysql.connector.connect(**conf)
     cur = db.cursor()
+
     if tag == "all":
-        query = "select id,title,dop from Question"
+        query = "select count(*) from Question"
+    elif "_" in tag:
+        tags_list=tag.split("_")
+        query = ""
+        q=" AND Question.id IN ("
+        for i in range(len(tags_list)):
+            query+="SELECT Question.id from Question,QuesTag,Tag WHERE Question.id=QuesTag.qid AND QuesTag.tid=Tag.id AND Tag.tag='{}'".format(tags_list[i])
+            if i<len(tags_list)-1:
+                query+=q
+            else:
+                query+=")"*(len(tags_list)-1)
+        query="SELECT count(*) from Question WHERE Question.id IN ("+query+")"
+    else:
+        for i,j in tags:
+            if j==tag:
+                tid=i
+                break
+        query = "select count(*) from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
+    cur.execute(query)
+    total = cur.fetchone()[0]
+
+    start = (page_no-1)*10
+    end_page = math.ceil(total/10)
+
+    if tag == "all":
+        query = "select id,title,dop from Question limit {},10".format(start)
     elif "_" in tag:
         tags_list=tag.split("_")
         tag=sub("_",", ",tag)
@@ -191,13 +217,13 @@ def questions(tag):
                 query+=q
             else:
                 query+=")"*(len(tags_list)-1)
-        query="SELECT Question.id,Question.title,Question.dop from Question WHERE Question.id IN ("+query+")"
+        query="SELECT Question.id,Question.title,Question.dop from Question WHERE Question.id IN ("+query+") limit {},10".format(start)
     else:
         for i,j in tags:
             if j==tag:
                 tid=i
                 break
-        query = "select Question.id,Question.title,Question.dop from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={}".format(tid)
+        query = "select Question.id,Question.title,Question.dop from Question,QuesTag,Tag where Question.id=QuesTag.qid and QuesTag.tid=Tag.id and Tag.id={} limit {},10".format(tid,start)
     cur.execute(query)
     ques = cur.fetchall()
 
@@ -222,7 +248,7 @@ def questions(tag):
 
     cur.close()
     db.close()
-    return render_template("questions.html", ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users, tag=tag)
+    return render_template("questions.html", ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users, tag=tag, end_page=end_page, page_no=page_no)
 
 
 @app.route("/profile", methods=["GET", "POST"])
