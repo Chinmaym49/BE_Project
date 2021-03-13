@@ -171,7 +171,7 @@ def askQuestion():
     return render_template('ask.html',n=0)
 
 
-@app.route("/questions/<string:tag>/<int:page_no>", methods=["GET", "POST"])
+@app.route("/questions/<string:tag>/<int:page_no>")
 def questions(tag,page_no):
     db = mysql.connector.connect(**conf)
     cur = db.cursor()
@@ -323,18 +323,28 @@ def quespage(id):
     cur.execute(query)
     uq = cur.fetchone()
 
-    query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id".format(id)
+    query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id and QuesAns.aid=Answer.id".format(id)
     cur.execute(query)
     ans = cur.fetchall()
     f=0
+    vote_stat=[]
     if "id" in session:
         for x in ans:
             if x[1]==session["id"]:
                 f=1
                 break
+        for rec in ans:
+            query = "select aid,status from AnsVote where aid={} and uid={}".format(rec[0],session["id"])
+            cur.execute(query)
+            v=cur.fetchone()
+            if not v:
+                v=(session["id"],rec[0],0)
+                cur.execute("insert into AnsVote values(%s,%s,%s)",v)
+                db.commit()
+            vote_stat.append(v)
     cur.close()
     db.close()
-    return render_template("quespage.html",tgs=tgs,c=anscount,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans),f=f)
+    return render_template("quespage.html",tgs=tgs,c=anscount,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans),f=f,vote_stat=vote_stat)
 
 @app.route("/searchQuestion", methods=["GET", "POST"])
 def searchQuestion():
