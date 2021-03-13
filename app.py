@@ -35,7 +35,7 @@ def internal_error(error):
 def not_found(error):
     return "404 error", 404
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     ''' db = mysql.connector.connect(**conf)
     mycursor = db.cursor()
@@ -59,14 +59,11 @@ def login():
     if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
         email = request.form['email']
         password = request.form['password']
-        print(email, password)
         db = mysql.connector.connect(**conf)
         cur = db.cursor()
 
-        cur.execute(
-            'SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
+        cur.execute('SELECT * FROM User WHERE email = %s AND password = %s', (email, password))
         account = cur.fetchone()
-        print(account)
         cur.close()
         db.close()
         if account:
@@ -91,7 +88,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def home():
     return render_template('index.html')
 
@@ -234,7 +231,7 @@ def questions(tag,page_no):
     return render_template("questions.html", ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users, tag=tag, end_page=end_page, page_no=page_no)
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile")
 def profile():
     if 'username' in session:
         db = mysql.connector.connect(**conf)
@@ -271,7 +268,7 @@ def profile():
         return redirect(url_for('login'))
 
 
-@app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
+@app.route("/tags/<int:page_no>/<flag>")
 def tagpage(page_no, flag):
     global rendered_tags
     global search_string
@@ -293,10 +290,21 @@ def tagpage(page_no, flag):
     end_page = math.ceil(len(rendered_tags)/16)
     return render_template("tags.html", tags=rendered_tags, start=start, end=end, page_no=page_no, end_page=end_page, search_string=search_string, n=len(rendered_tags))
 
-@app.route("/ques/<int:id>")
+@app.route("/ques/<int:id>", methods=["GET", "POST"])
 def quespage(id):
     db = mysql.connector.connect(**conf)
     cur = db.cursor()
+    if request.method == "POST":
+        answer=request.form.get("ans")
+        cur.execute("insert into Answer(uid,answer,votes,doa) values(%s,%s,%s,%s)",(session["id"],answer,0,datetime.now()))
+        aid=cur.lastrowid
+        db.commit()
+        cur.execute("insert into QuesAns values(%s,%s)",(id,aid))
+        db.commit()
+        cur.close()
+        db.close()
+        return redirect(url_for("quespage",id=id))
+
     query = "select id,title,body,dop from Question where id={}".format(id)
     cur.execute(query)
     ques = cur.fetchone()
@@ -309,19 +317,24 @@ def quespage(id):
 
     query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
     cur.execute(query)
-    c = cur.fetchone()[0]
+    anscount = cur.fetchone()[0]
 
-    query = "select User.id,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
+    query = "select Question.uid,User.handle from Question,User where Question.id={} and Question.uid=User.id".format(id)
     cur.execute(query)
     uq = cur.fetchone()
 
     query = "select Answer.*,User.handle from Answer,QuesAns,User where QuesAns.qid={} and Answer.uid=User.id".format(id)
     cur.execute(query)
     ans = cur.fetchall()
-
+    f=0
+    if "id" in session:
+        for x in ans:
+            if x[1]==session["id"]:
+                f=1
+                break
     cur.close()
     db.close()
-    return render_template("quespage.html",tgs=tgs,c=c,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans))
+    return render_template("quespage.html",tgs=tgs,c=anscount,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans),f=f)
 
 @app.route("/searchQuestion", methods=["GET", "POST"])
 def searchQuestion():
