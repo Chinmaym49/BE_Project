@@ -202,7 +202,7 @@ def questions(tag,page_no):
     total = cur.fetchone()[0]
 
     start = (page_no-1)*10
-    end_page = math.ceil(total/10)
+    end_page = max(math.ceil(total/10),1)
 
     if tag == "all":
         query = "select id,title,dop from Question limit {},10".format(start)
