@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Question - Stackoverflow lite</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         .alert {
           padding: 15px;
@@ -122,7 +123,12 @@
                             <div class="question-list-item">
                                 <div class="col-10">
                                     <pre style="font-family: 'Roboto', 'Helvetica', 'Arial';">{{ques[2]}}</pre>
-                                    <h5 class="text-grey">Asked on <span class="text-primary">{{ques[3]}}</span> by <span class="text-primary">{{uq[1]}}</span></h5>
+                                    <h5 class="text-grey">
+                                        Asked by
+                                        <span class="text-primary">{{uq[1]}}</span>
+                                        on
+                                        <span class="text-primary">{{ques[3]}}</span>
+                                    </h5>
                                     {% for t in tgs %}
                                         <button class="btn btn-badge btn-link" onclick="location.href='{{url_for('questions',tag=t,page_no=1)}}'">
                                             {{t}}
@@ -167,10 +173,24 @@
                                 {% for id,uid,answer,votes,doa,handle in ans %}
                                     <div class="answer__item">                                        
                                         <h5 class="text-grey">Answered by <span class="text-primary">{{handle}}</span> on <span class="text-primary">{{doa.strftime("%d-%b-%Y %H:%M")}}</span></h5>
-                                        <div class="answer__item_vote pull-left">
-                                            <div class="arrow-up"></div>
-                                            <div class="text-center text-bold">{{votes}}</div>
-                                            <div class="arrow-down"></div>
+                                        <div class="answer__item_vote pull-left" style="margin-right: 10px;">
+                                            {% if "id" in session %}
+                                                {% if vote_stat[loop.index0][1]==1 %}
+                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px; color: #4CAF50">expand_less</i></center>
+                                                {% else %}
+                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px;">expand_less</i></center>
+                                                {% endif %}
+                                                <center><div class="text-bold">{{votes}}</div></center>
+                                                {% if vote_stat[loop.index0][1]==-1 %}
+                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px; color: #f44336;">expand_more</i></center>
+                                                {% else %}
+                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px;">expand_more</i></center>
+                                                {% endif %}
+                                            {% else %}
+                                                <center><i class="material-icons" style="padding-top: 3px;">expand_less</i></center>
+                                                <center><div class="text-bold">{{votes}}</div></center>
+                                                <center><i class="material-icons" style="padding-top: 3px;">expand_more</i></center>
+                                            {% endif %}
                                         </div>
                                         <!-- answer body -->
                                         <div class="answer__item_body pull-left">
