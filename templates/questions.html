@@ -21,7 +21,7 @@
         <div class="sidebar-items">
           <ul class="sidebar-items__nav nav column">
             <li class="sidebar-items__nav--active">
-              <a class="active-text" href="{{url_for('questions',tag='all')}}">
+              <a class="active-text" href="{{url_for('questions',tag='all',page_no=1)}}">
                 <img class="icon" src="{{ url_for('static',filename='img/question-mark.svg') }}"/>
                 <span class="sidebar-items__text">Questions</span>
               </a>
@@ -158,6 +158,40 @@
                     <div class="clearfix bb"></div>
                   {% endfor %}
                 </div>
+                <style>         
+                  #aa {
+                      text-decoration: none;
+                      display: inline-block;
+                      padding: 8px 16px;
+                  }
+                  
+                  #aa:hover {
+                      background-color: #ddd;
+                      color: black;
+                  }
+                  
+                  .previous {
+                      background-color: #f1f1f1;
+                      color: black;
+                  }
+                  
+                  .next {
+                      background-color: #f1f1f1;
+                      color: black;
+                  }
+                  
+                  .round {
+                      border-radius: 50%;
+                  }
+                </style>
+              <center>
+                      {% if page_no!=1 %}
+                          <a href="{{url_for('questions',page_no=page_no-1,tag=tag)}}" id="aa" class="previous round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); margin-right: 50px;">&#8249;</a>
+                      {% endif %}
+                      {% if page_no!=end_page %}
+                          <a href="{{url_for('questions',page_no=page_no+1,tag=tag)}}" id="aa" class="next round" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">&#8250;</a>
+                      {% endif %}
+              </center>
               </div>
             </div>
           </div>
