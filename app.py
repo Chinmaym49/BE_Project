@@ -242,6 +242,12 @@ def profile():
         cur.execute(query)
         ques = cur.fetchall()
 
+        ques_count = len(ques)
+
+        query="Select count(*) from Answer where uid={}".format(session['id'])
+        cur.execute(query)
+        ans_count = cur.fetchone()[0]
+
         tags_list = []
         anscnt = []
         users = []
@@ -263,7 +269,7 @@ def profile():
 
         cur.close()
         db.close()
-        return render_template('profile.html', ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users)
+        return render_template('profile.html', ques=ques, n=len(ques), tags=tags_list, anscnt=anscnt, users=users, ques_count=ques_count,ans_count=ans_count)
     else:
         return redirect(url_for('login'))
 
