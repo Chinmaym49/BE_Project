@@ -338,13 +338,77 @@ def quespage(id):
             cur.execute(query)
             v=cur.fetchone()
             if not v:
-                v=(session["id"],rec[0],0)
-                cur.execute("insert into AnsVote values(%s,%s,%s)",v)
+                v=(rec[0],0)
+                cur.execute("insert into AnsVote values(%s,%s,%s)",(session["id"],v[0],v[1]))
                 db.commit()
             vote_stat.append(v)
     cur.close()
     db.close()
     return render_template("quespage.html",tgs=tgs,c=anscount,uq=uq,ques=[id,title,body,dop],ans=ans,n=len(ans),f=f,vote_stat=vote_stat)
+
+@app.route("/vote", methods=["POST"])
+def voting():
+    aid,f=request.form["aid_f"].split("_")
+    aid=int(aid)
+    uid=session["id"]
+    db = mysql.connector.connect(**conf)
+    cur = db.cursor()
+    query="select status from AnsVote where aid={} and uid={}".format(aid,uid)
+    cur.execute(query)
+    stat=cur.fetchone()[0]
+    if f=="up":
+        if stat==0:
+            q1="update AnsVote set status=1 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes+1 where id={}".format(aid)
+            v="+1"
+            u="#4CAF50"
+            d=""
+        elif stat==1:
+            q1="update AnsVote set status=0 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes-1 where id={}".format(aid)
+            v="-1"
+            u=""
+            d=""
+        else:
+            q1="update AnsVote set status=1 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes+2 where id={}".format(aid)
+            v="+2"
+            u="#4CAF50"
+            d=""
+    else:
+        if stat==0:
+            q1="update AnsVote set status=-1 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes-1 where id={}".format(aid)
+            v="-1"
+            u=""
+            d="#f44336"
+        elif stat==1:
+            q1="update AnsVote set status=-1 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes-2 where id={}".format(aid)
+            v="-2"
+            u=""
+            d="#f44336"
+        else:
+            q1="update AnsVote set status=0 where aid={} and uid={}".format(aid,uid)
+            q2="update Answer set votes=votes+1 where id={}".format(aid)
+            v="+1"
+            u=""
+            d=""
+    cur.execute(q1)
+    db.commit()
+    cur.execute(q2)
+    db.commit()
+
+    cur.close()
+    db.close()
+    aid=str(aid)
+    return jsonify({
+        "v":v,
+        "uc":u,"dc":d,
+        "ui":"#"+aid+"_up",
+        "di":"#"+aid+"_down",
+        "vi":"#"+aid+"_v"
+    })
 
 @app.route("/searchQuestion", methods=["GET", "POST"])
 def searchQuestion():

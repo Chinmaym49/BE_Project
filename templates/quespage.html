@@ -7,6 +7,8 @@
     <title>Question - Stackoverflow lite</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">  
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='js/voting.js') }}"></script>
     <style>
         .alert {
           padding: 15px;
@@ -170,36 +172,38 @@
                                 {% if n==0 %}
                                     <p>Not answered yet...</p>
                                 {% endif %}
-                                {% for id,uid,answer,votes,doa,handle in ans %}
-                                    <div class="answer__item">                                        
-                                        <h5 class="text-grey">Answered by <span class="text-primary">{{handle}}</span> on <span class="text-primary">{{doa.strftime("%d-%b-%Y %H:%M")}}</span></h5>
-                                        <div class="answer__item_vote pull-left" style="margin-right: 10px;">
-                                            {% if "id" in session %}
-                                                {% if vote_stat[loop.index0][1]==1 %}
-                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px; color: #4CAF50">expand_less</i></center>
+                                <form id="all_ans">
+                                    {% for id,uid,answer,votes,doa,handle in ans %}
+                                        <div class="answer__item">                                        
+                                            <h5 class="text-grey">Answered by <span class="text-primary">{{handle}}</span> on <span class="text-primary">{{doa.strftime("%d-%b-%Y %H:%M")}}</span></h5>
+                                            <div class="answer__item_vote pull-left" style="margin-right: 10px;">
+                                                {% if "id" in session %}
+                                                    {% if vote_stat[loop.index0][1]==1 %}
+                                                        <center><button type="submit" id="{{id|string+'_up'}}" name="vote" value="{{id|string+'_up'}}" style="border: none; border-radius: 100%; background-color: #4CAF50; cursor: pointer;"><i class="material-icons" style="padding-top: 3px;">expand_less</i></button></center>
+                                                    {% else %}
+                                                        <center><button type="submit" id="{{id|string+'_up'}}" name="vote" value="{{id|string+'_up'}}" style="border: none; border-radius: 100%; cursor: pointer;"><i class="material-icons" style="padding-top: 3px;">expand_less</i></button></center>
+                                                    {% endif %}
+                                                    <center><div id="{{id|string+'_v'}}" class="text-bold">{{votes}}</div></center>
+                                                    {% if vote_stat[loop.index0][1]==-1 %}
+                                                        <center><button type="submit" id="{{id|string+'_down'}}" name="vote" value="{{id|string+'_down'}}" style="border: none; border-radius: 100%; background-color: #f44336; cursor: pointer;"><i class="material-icons" style="padding-top: 3px;">expand_more</i></button></center>
+                                                    {% else %}
+                                                        <center><button type="submit" id="{{id|string+'_down'}}" name="vote" value="{{id|string+'_down'}}" style="border: none; border-radius: 100%; cursor: pointer;"><i class="material-icons" style="padding-top: 3px;">expand_more</i></button></center>
+                                                    {% endif %}
                                                 {% else %}
-                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px;">expand_less</i></center>
+                                                    <center><button onclick="alert('Login to vote!'); return false;" style="border: none; border-radius: 100%;"><i class="material-icons" style="padding-top: 3px;">expand_less</i></button></center>
+                                                    <center><div class="text-bold">{{votes}}</div></center>
+                                                    <center><button onclick="alert('Login to vote!'); return false;" style="border: none; border-radius: 100%;"><i class="material-icons" style="padding-top: 3px;">expand_more</i></button></center>
                                                 {% endif %}
-                                                <center><div class="text-bold">{{votes}}</div></center>
-                                                {% if vote_stat[loop.index0][1]==-1 %}
-                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px; color: #f44336;">expand_more</i></center>
-                                                {% else %}
-                                                    <center><i id="{{id|string+'_up'}}" class="material-icons" style="padding-top: 3px;">expand_more</i></center>
-                                                {% endif %}
-                                            {% else %}
-                                                <center><i class="material-icons" style="padding-top: 3px;">expand_less</i></center>
-                                                <center><div class="text-bold">{{votes}}</div></center>
-                                                <center><i class="material-icons" style="padding-top: 3px;">expand_more</i></center>
-                                            {% endif %}
+                                            </div>
+                                            <!-- answer body -->
+                                            <div class="answer__item_body pull-left">
+                                                <pre style="font-family: 'Roboto', 'Helvetica', 'Arial'; margin-top: 0px;">{{answer}}</pre>
+                                            </div>
+                                            <!-- ./body -->
                                         </div>
-                                        <!-- answer body -->
-                                        <div class="answer__item_body pull-left">
-                                            <pre style="font-family: 'Roboto', 'Helvetica', 'Arial';">{{answer}}</pre>
-                                        </div>
-                                        <!-- ./body -->
-                                    </div>
-                                    <div class="clearfix bb"></div>
-                                {% endfor %}                           
+                                        <div class="clearfix bb"></div>
+                                    {% endfor %}   
+                                </form>                        
                                 <!-- ./answer -->
                                 <!-- post answer -->
                                 <form action="{{url_for('quespage',id=ques[0])}}" method="POST">
