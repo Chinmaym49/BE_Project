@@ -99,18 +99,19 @@
                     </div>
                     <!-- ./popular -->
 
+                    <!--TO DO Format statistics widget-->
                     <div class="content-wrapper">
                         <div class="flex-wrapper">
                             <!-- statistics widget -->
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-dark-blue">
                                     <div class="statistics__card__title pull-left">
-                                        <b>#Questions</b>
+                                        <b>Questions</b>
                                     </div>
                                     <img class="statistics__card__icon pull-right"
                                         src="{{ url_for('static',filename='img/question-mark.svg') }}" />
                                     <div class=""></div>
-                                    <div class="statistics__card__value">69</div>
+                                    <div class="statistics__card__value">{{ques_count}}</div>
                                 </div>
                             </div>
                             <!-- ./ statistics -->
@@ -119,12 +120,12 @@
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-white">
                                     <div class="statistics__card__title pull-left">
-                                        <b>#Answers</b>
+                                        <b>Answers</b>
                                     </div>
                                     <img class="statistics__card__icon pull-right"
                                         src="{{ url_for('static',filename='img/checklist-on-a-paper-with-a-pencil.svg') }}" />
                                     <div class=""></div>
-                                    <div class="statistics__card__value">69</div>
+                                    <div class="statistics__card__value">{{ans_count}}</div>
                                 </div>
                             </div>
                             <!-- ./ statistics -->
@@ -133,12 +134,12 @@
                             <div class="statistics">
                                 <div class="statistics__card shadow-primary bg-light-blue">
                                     <div class="statistics__card__title pull-left">
-                                        <b>#Votes</b>
+                                        <b>Votes</b>
                                     </div>
                                     <img class="statistics__card__icon pull-right"
                                         src="{{ url_for('static',filename='img/thumbs-up.svg') }}" />
                                     <div class=""></div>
-                                    <div class="statistics__card__value">109</div>
+                                    <div class="statistics__card__value">{{vote_count}}</div>
                                 </div>
                             </div>
                             <!-- ./ statistics -->
