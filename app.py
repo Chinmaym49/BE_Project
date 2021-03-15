@@ -278,7 +278,7 @@ def profile():
         return redirect(url_for('login'))
 
 
-@app.route("/tags/<int:page_no>/<flag>")
+@app.route("/tags/<int:page_no>/<flag>", methods=["GET", "POST"])
 def tagpage(page_no, flag):
     global rendered_tags
     global search_string
