@@ -6,11 +6,11 @@ Always push to your personal branch and then merge with master
 Database Credentials
 
 
--Username: xjkizVz0D6
+-Username: ksBrVmnfwV
 
--Database name: xjkizVz0D6
+-Database name: ksBrVmnfwV
 
--Password: cQDyeM6Uxx
+-Password: xwgCNe8x41
 
 -Server: remotemysql.com
 
