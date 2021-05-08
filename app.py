@@ -1,4 +1,5 @@
 from flask import Flask, session, request, redirect, render_template, url_for, flash, jsonify
+import json
 import mysql.connector
 import math
 import requests
@@ -136,7 +137,7 @@ def askQuestion():
                     tgs = cur.fetchall()
                     tags_list.append([t[0] for t in tgs])
 
-                    query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(duplicate_question[0])
+                    query = "select count(*) from Question,QuesAns where Question.id=QuesAns.qid and Question.id={}".format(duplicate_question[0])
                     cur.execute(query)
                     c = cur.fetchone()
                     anscnt.append(c[0])
@@ -216,7 +217,7 @@ def questions(tag,page_no):
         tgs = cur.fetchall()
         tags_list.append([t[0] for t in tgs])
 
-        query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
+        query = "select count(*) from Question,QuesAns where Question.id=QuesAns.qid and Question.id={}".format(id)
         cur.execute(query)
         c = cur.fetchone()
         anscnt.append(c[0])
@@ -261,7 +262,7 @@ def profile():
             tgs = cur.fetchall()
             tags_list.append([t[0] for t in tgs])
 
-            query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
+            query = "select count(*) from Question,QuesAns where Question.id=QuesAns.qid and Question.id={}".format(id)
             cur.execute(query)
             c = cur.fetchone()
             anscnt.append(c[0])
@@ -325,7 +326,7 @@ def quespage(id):
     tgs = cur.fetchall()
     tgs=[t[0] for t in tgs]
 
-    query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(id)
+    query = "select count(*) from Question,QuesAns where Question.id=QuesAns.qid and Question.id={}".format(id)
     cur.execute(query)
     anscount = cur.fetchone()[0]
 
@@ -358,7 +359,7 @@ def quespage(id):
 
 @app.route("/vote", methods=["POST"])
 def voting():
-    aid,f=request.form["aid_f"].split("_")
+    aid,f=json.loads(request.data)["aid_f"].split("_")
     aid=int(aid)
     uid=session["id"]
     db = mysql.connector.connect(**conf)
@@ -413,11 +414,7 @@ def voting():
     db.close()
     aid=str(aid)
     return jsonify({
-        "v":v,
-        "uc":u,"dc":d,
-        "ui":"#"+aid+"_up",
-        "di":"#"+aid+"_down",
-        "vi":"#"+aid+"_v"
+        "status":"SUCCESS"
     })
 
 @app.route("/searchQuestion", methods=["GET", "POST"])
@@ -461,7 +458,7 @@ def searchQuestion():
                 tgs = cur.fetchall()
                 tags_list.append([t[0] for t in tgs])
 
-                query = "select count(*) from Question,QuesAns,Answer where Question.id=QuesAns.qid and QuesAns.aid=Answer.id and Question.id={}".format(duplicate_question[0])
+                query = "select count(*) from Question,QuesAns where Question.id=QuesAns.qid and Question.id={}".format(duplicate_question[0])
                 cur.execute(query)
                 c = cur.fetchone()
                 anscnt.append(c[0])
