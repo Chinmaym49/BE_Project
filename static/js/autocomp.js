@@ -55,5 +55,5 @@ function set() {
         }
         t+=arr[arr.length-1];
     }    
-    window.location.href="http://localhost:5000/questions/"+t+"/1";
+    window.location.href="/questions/"+t+"/1";
 }
