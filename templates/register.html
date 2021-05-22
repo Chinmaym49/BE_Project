@@ -12,8 +12,14 @@
       <div class="container">
         <div class="col-4">&nbsp;</div>
         <div class="card card-signup col-4">
-          <form class="form" action="{{url_for('login')}}" method="POST">
+          <form class="form" action="{{url_for('register')}}" method="POST">
             <div class="header header-text header-primary">SIGN UP</div>
+            {% for msg in get_flashed_messages() %}
+              <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                  {{msg}}
+              </div>
+            {% endfor %}
             <div class="form-container mt-20 p-15">
               <div class="form-group">
                 <input

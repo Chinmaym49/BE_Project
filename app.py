@@ -23,7 +23,7 @@ tags = [(3001, 'c-hash'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://51563ecf8969.ngrok.io"
+server_url = "http://a780bc04b54c.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
@@ -38,19 +38,53 @@ def not_found(error):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    ''' db = mysql.connector.connect(**conf)
-    mycursor = db.cursor()
 
-    sql = "INSERT INTO User (id, handle, email, password) VALUES (%s, %s, %s, %s)"
-    val = ("1", "Cap", "shaileshborate@gmail.com", "12345678")
-    mycursor.execute(sql, val)
+    if request.method == "POST":
 
-    db.commit()
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
-    print(mycursor.rowcount, "record inserted.")
-    mycursor.close()
-    db.close()
-    '''
+        db = mysql.connector.connect(**conf)
+        cur = db.cursor()
+
+        #check if email already exists
+        sql = "SELECT COUNT(*) FROM User WHERE email = %s"
+        cur.execute(sql, (email,))
+        count1 = cur.fetchone()
+
+        #check if handle already exists
+        sql = "SELECT COUNT(*) FROM User WHERE handle = %s"
+        cur.execute(sql, (username,))
+        count2 = cur.fetchone()
+        
+        print(count2)
+        if count1[0] == 0 and count2[0] == 0 :
+            sql = "INSERT INTO User (handle, email, password) VALUES (%s, %s, %s)"
+            val = (username, email, password)
+            cur.execute(sql, val)
+            db.commit()
+
+            cur.close()
+            db.close()
+        elif count1[0] != 0 :
+            cur.close()
+            db.close()
+            msg = 'Email already exists!'
+            flash(msg)
+            return redirect(url_for('register'))
+        elif count2[0] != 0 :
+            cur.close()
+            db.close()
+            msg = 'Username already exists!'
+            flash(msg)
+            return redirect(url_for('register'))
+
+
+        msg = 'Account created Successfully!'
+        flash(msg)
+        return redirect(url_for('login'))
+
     return render_template('register.html')
 
 
