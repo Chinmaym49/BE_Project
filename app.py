@@ -81,7 +81,7 @@ def register():
             return redirect(url_for('register'))
 
 
-        msg = 'Account created Successfully!'
+        msg = '1Account created Successfully!'
         flash(msg)
         return redirect(url_for('login'))
 
