@@ -23,7 +23,7 @@ tags = [(3001, 'c-hash'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://5426754e8401.ngrok.io"
+server_url = "http://088096c31dec.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
