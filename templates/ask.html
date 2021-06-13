@@ -170,7 +170,7 @@
                     <div class="question-list-item">
                       <div class="col-6">
                         <h2>
-                          <a class="text-primary" href=""> {{q[1]}} </a>
+                          <a class="text-primary" href="{{ url_for('quespage',id=q[0]) }}"> {{q[1]}} </a>
                         </h2>
                         {% for t in tags[loop.index0] %}
                         <button class="btn btn-badge btn-link" onclick="location.href='{{url_for('questions',tag=t,page_no=1)}}'">{{t}}</button>
