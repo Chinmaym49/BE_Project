@@ -23,7 +23,7 @@ tags = [(3001, 'c-hash'), (3002, 'java'), (3003, 'php'), (3004, 'javascript'), (
 rendered_tags = []
 search_string = ""
 # Enter Server URL
-server_url = "http://a780bc04b54c.ngrok.io"
+server_url = "http://5426754e8401.ngrok.io"
 
 # This will work when debug is off!
 # TO-DO Find good error pages
@@ -158,7 +158,7 @@ def askQuestion():
                 response = requests.post(server_url+"/dup", json=qs).json()
                 dup_score = response['prediction']
                 print(dup_score)
-                if dup_score >= 0.5:
+                if dup_score >= 0.3:
                     duplicate_questions.append(question)
             if duplicate_questions:
                 print(duplicate_questions)
@@ -479,7 +479,7 @@ def searchQuestion():
             response = requests.post(server_url+"/dup", json=qs).json()
             dup_score = response['prediction']
             print(dup_score)
-            if dup_score >= 0.5:
+            if dup_score >= 0.3:
                 duplicate_questions.append(question)
         if duplicate_questions:
             print(duplicate_questions)
